@@ -1,0 +1,9 @@
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\bin\Debug\TicketingSystem.exe.config
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\bin\Debug\TicketingSystem.exe
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\bin\Debug\TicketingSystem.pdb
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.csprojResolveAssemblyReference.cache
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.TokenGUI.resources
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.Properties.Resources.resources
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.csproj.GenerateResource.Cache
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.exe
+F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.pdb
