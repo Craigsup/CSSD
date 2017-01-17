@@ -1,18 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicketingSystem {
     class Ticket {
-        private int TicketID;
-        private Departure Departure;
-        private Route ARoute;
-        private bool isValid;
-        private DateTime PrintTime;
-        private string SeatReservaton;
-        private string TicketType;
-        private DateTime ExpiryDate;
+        private int _ticketId;
+        private Departure _departure;
+        private Route _aRoute;
+        private bool _isValid;
+        private DateTime _printTime;
+        private string _seatReservaton;
+        private string _ticketType;
+        private DateTime _expiryDate;
+
+        public Ticket(int ticketId, Departure departure, Route aRoute, bool isValid, DateTime printTime, string seatReservaton, string ticketType, DateTime expiryDate) {
+            _ticketId = ticketId;
+            _departure = departure;
+            _aRoute = aRoute;
+            _isValid = isValid;
+            _printTime = printTime;
+            _seatReservaton = seatReservaton;
+            _ticketType = ticketType;
+            _expiryDate = expiryDate;
+        }
 
         public int TicketId() {
             return 0;

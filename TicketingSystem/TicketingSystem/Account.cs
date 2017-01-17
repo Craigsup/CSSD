@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     public class Account {
-        private int AccountID;
-        private string FullName;
-        private string password;
-        private bool LoginStatus;
-        private string Username;
+        private int _accountId;
+        private string _fullName;
+        private string _password;
+        private bool _loginStatus;
+        private string _username;
+
+        public Account(int accountId, string fullName, string password, bool loginStatus, string username) {
+            _accountId = accountId;
+            _fullName = fullName;
+            _password = password;
+            _loginStatus = loginStatus;
+            _username = username;
+        }
 
         public int GetAccount() {
             return 0;

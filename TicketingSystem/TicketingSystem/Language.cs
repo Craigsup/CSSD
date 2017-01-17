@@ -1,25 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     public class Language {
-        private string NameOfLang;
-        private string TicketType;
-        private string Route;
-        private string GuestOptions;
-        private string Departure;
-        private string StarterOption;
-        private string PaymentOptions;
-        private string FinalMessage;
+        private string _nameOfLang;
+        private string _ticketType;
+        private string _route;
+        private string _guestOptions;
+        private string _departure;
+        private string _starterOption;
+        private string _paymentOptions;
+        private string _finalMessage;
         
-        public Language() {
+        public Language(string nameOfLang, string ticketType, string route, string guestOptions, string departure, string starterOption, string paymentOptions, string finalMessage) {
+            _nameOfLang = nameOfLang;
+            _ticketType = ticketType;
+            _route = route;
+            _guestOptions = guestOptions;
+            _departure = departure;
+            _starterOption = starterOption;
+            _paymentOptions = paymentOptions;
+            _finalMessage = finalMessage;
         }
 
         public string GetNameOfLang() {
-            return NameOfLang;
+            return _nameOfLang;
         }
 
         public string GetLogin() {
@@ -27,31 +29,31 @@ namespace TicketingSystem {
         }
 
         public string GetTicketType() {
-            return TicketType ;
+            return _ticketType ;
         }
 
         public string GetRoute() {
-            return Route;
+            return _route;
         }
 
         public string GetGuestOptions() {
-            return GuestOptions;
+            return _guestOptions;
         }
 
         public string GetDeparture() {
-            return Departure;
+            return _departure;
         }
 
         public string GetStarterOption() {
-            return StarterOption;
+            return _starterOption;
         }
 
         public string GetPaymentOptions() {
-            return PaymentOptions;
+            return _paymentOptions;
         }
 
         public string GetFinalMessage() {
-            return FinalMessage;
+            return _finalMessage;
         }
     }
 }

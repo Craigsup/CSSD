@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem
 {
-    partial class TokenMachineGUI
+    partial class TokenMachineGui
     {
         /// <summary>
         /// Required designer variable.

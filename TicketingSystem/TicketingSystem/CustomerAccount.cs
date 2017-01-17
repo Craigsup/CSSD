@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     class CustomerAccount : Account {
-        private int CardID;
-        private float Balance;
+        private int _cardId;
+        private float _balance;
 
-        public int GetCardID() {
+        public CustomerAccount(int cardId, float balance) {
+            _cardId = cardId;
+            _balance = balance;
+        }
+
+        public int GetCardId() {
             return 0;
         }
 

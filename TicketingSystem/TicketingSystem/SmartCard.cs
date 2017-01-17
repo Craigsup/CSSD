@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     class SmartCard {
-        private int cardId;
+        private int _cardId;
+
+        public SmartCard(int cardId) {
+            _cardId = cardId;
+        }
 
         public int GetCardId() {
-            return cardId;
+            return _cardId;
         }
     }
 }

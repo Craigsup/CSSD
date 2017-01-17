@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     public class Route {
-        private Station RouteStartPoint;
-        private Station RouteEndPoint;
-        private float Price;
+        private Station _routeStartPoint;
+        private Station _routeEndPoint;
+        private float _price;
 
         public Station GetStartPoint() {
-            return RouteStartPoint;
+            return _routeStartPoint;
         }
 
         public Station GetEndPoint() {
-            return RouteEndPoint;
+            return _routeEndPoint;
         }
 
         public float GetPrice() {
-            return Price;
+            return _price;
         }
 
         public void SetRouteStartPoint(Station station) {
-            RouteStartPoint = station;
+            _routeStartPoint = station;
         }
 
         public void SetRouteEndPoint(Station station) {
-            RouteEndPoint = station;
+            _routeEndPoint = station;
         }
 
         public void SetPrice(float price) {
-            Price = price;
+            _price = price;
         }
     }
 }

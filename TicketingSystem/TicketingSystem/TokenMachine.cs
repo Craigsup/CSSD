@@ -1,18 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicketingSystem {
     class TokenMachine {
-        private CustomerAccount AnAccount;
-        private CardReader Reader;
-        private Ticket Ticket;
-        private SmartCard Card;
-        private DateTime DateTimePrint;
-        private Payment Payment;
-        private float DayPassPrice;
+        private CustomerAccount _anAccount;
+        private CardReader _reader;
+        private Ticket _ticket;
+        private SmartCard _card;
+        private DateTime _dateTimePrint;
+        private Payment _payment;
+        private float _dayPassPrice;
+
+        public TokenMachine(float dayPassPrice, Payment payment, DateTime dateTimePrint, SmartCard card, Ticket ticket, CardReader reader, CustomerAccount anAccount) {
+            _dayPassPrice = dayPassPrice;
+            _payment = payment;
+            _dateTimePrint = dateTimePrint;
+            _card = card;
+            _ticket = ticket;
+            _reader = reader;
+            _anAccount = anAccount;
+        }
 
         public void PrintTicket() {
 

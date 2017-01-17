@@ -7,3 +7,6 @@ F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingS
 F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.csproj.GenerateResource.Cache
 F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.exe
 F:\Final Year\Case Studies in Software Design\Coursework\Assignment 3\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.pdb
+C:\Users\Craig\University\Level 6\Case Studies In Software Design\Coursework\test\trunk\TicketingSystem\TicketingSystem\bin\Debug\TicketingSystem.exe.config
+C:\Users\Craig\University\Level 6\Case Studies In Software Design\Coursework\test\trunk\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.exe
+C:\Users\Craig\University\Level 6\Case Studies In Software Design\Coursework\test\trunk\TicketingSystem\TicketingSystem\obj\Debug\TicketingSystem.pdb

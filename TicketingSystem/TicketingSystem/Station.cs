@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TicketingSystem {
     public class Station {
-        private List<Departure> DepartureList;
-        private string Location;
+        private List<Departure> _departureList;
+        private string _location;
+
+        public Station(List<Departure> departureList, string location) {
+            _departureList = departureList;
+            _location = location;
+        }
 
         public List<Departure> GetDepartures() {
             return null;
         }
 
         public string GetLocation() {
-            return Location;
+            return _location;
         }
     }
 }

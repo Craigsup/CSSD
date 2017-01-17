@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace TicketingSystem
 {
-    public partial class TokenMachineGUI : Form
+    public partial class TokenMachineGui : Form
     {
-        public TokenMachineGUI()
+        public TokenMachineGui()
         {
             InitializeComponent();
         }
