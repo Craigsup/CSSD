@@ -2,7 +2,7 @@
 
 namespace TicketingSystem {
     public class Departure {
-        private Station _station;
+        private readonly Station _station;
         private DateTime _departureTime;
 
         public Departure(Station station) {

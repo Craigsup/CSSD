@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TicketingSystem {
     public class LanguageList {
-        private List<Language> _listOfLanguages;
+        private readonly List<Language> _listOfLanguages;
 
         public LanguageList() {
             _listOfLanguages = new List<Language>();

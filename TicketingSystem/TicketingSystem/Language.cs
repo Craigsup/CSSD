@@ -1,13 +1,13 @@
 ﻿namespace TicketingSystem {
     public class Language {
-        private string _nameOfLang;
-        private string _ticketType;
-        private string _route;
-        private string _guestOptions;
-        private string _departure;
-        private string _starterOption;
-        private string _paymentOptions;
-        private string _finalMessage;
+        private readonly string _nameOfLang;
+        private readonly string _ticketType;
+        private readonly string _route;
+        private readonly string _guestOptions;
+        private readonly string _departure;
+        private readonly string _starterOption;
+        private readonly string _paymentOptions;
+        private readonly string _finalMessage;
         
         public Language(string nameOfLang, string ticketType, string route, string guestOptions, string departure, string starterOption, string paymentOptions, string finalMessage) {
             _nameOfLang = nameOfLang;

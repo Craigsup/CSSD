@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TicketingSystem {
-    class Ticket {
+    public class Ticket {
         private int _ticketId;
         private Departure _departure;
         private Route _aRoute;

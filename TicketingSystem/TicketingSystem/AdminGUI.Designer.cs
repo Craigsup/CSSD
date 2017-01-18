@@ -1,5 +1,5 @@
 ﻿namespace TicketingSystem {
-    partial class TokenMachineGUI {
+    partial class AdminGUI {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "TokenMachineGUI";
+            this.Text = "AdminGUI";
         }
 
         #endregion

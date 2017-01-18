@@ -1,9 +1,9 @@
 ﻿namespace TicketingSystem {
-    class CustomerAccount : Account {
+    public class CustomerAccount : Account {
         private int _cardId;
         private float _balance;
 
-        public CustomerAccount(int cardId, float balance) {
+        public CustomerAccount(int cardId, float balance, int accountId, string fullName, string password, bool loginStatus, string username) : base(accountId, fullName, password, loginStatus, username) {
             _cardId = cardId;
             _balance = balance;
         }

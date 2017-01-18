@@ -3,7 +3,7 @@
 namespace TicketingSystem {
     public class Station {
         private List<Departure> _departureList;
-        private string _location;
+        private readonly string _location;
 
         public Station(List<Departure> departureList, string location) {
             _departureList = departureList;

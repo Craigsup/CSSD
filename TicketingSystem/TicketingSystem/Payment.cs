@@ -1,5 +1,5 @@
 ﻿namespace TicketingSystem {
-    class Payment {
+    public class Payment {
         private CustomerAccount _anAccount;
         private float _amountPayed;
 
