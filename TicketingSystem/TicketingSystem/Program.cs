@@ -13,7 +13,7 @@ namespace TicketingSystem
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TokenMachineGui());
+            Application.Run(new TokenMachineGUI());
         }
     }
 }
