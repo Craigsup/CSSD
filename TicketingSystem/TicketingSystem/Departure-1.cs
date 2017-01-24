@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TicketingSystem {
     public class Departure {
-        private Station Station;
-        private DateTime DepartureTime;
+        private readonly Station _station;
+        private DateTime _departureTime;
 
-        public int GetDepartureID() {
+        public Departure(Station station) {
+            _station = station;
+        }
+
+        public int GetDepartureId() {
             return 0;
         }
 
         public Station GetStation() {
-            return Station;
+            return _station;
         }
 
         public DateTime GetDepartureTime() {
-            return DepartureTime;
+            return _departureTime;
         }
 
         public bool IsPeakDeparture() {
@@ -25,7 +26,7 @@ namespace TicketingSystem {
         }
 
         public void SetDepartureTime(DateTime time) {
-            DepartureTime = time;
+            _departureTime = time;
         }
     }
 }

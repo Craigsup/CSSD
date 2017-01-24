@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     public class Payment {
-        private CustomerAccount AnAccount;
-        private float AmountPayed;
+        private CustomerAccount _anAccount;
+        private float _amountPayed;
+
+        public Payment(CustomerAccount anAccount, float amountPayed) {
+            _anAccount = anAccount;
+            _amountPayed = amountPayed;
+        }
 
         public float AddBalance(float x, float y) {
             return 0;

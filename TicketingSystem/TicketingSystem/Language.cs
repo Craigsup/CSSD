@@ -1,15 +1,19 @@
-﻿namespace TicketingSystem {
+﻿using System.Collections.Generic;
+
+namespace TicketingSystem {
     public class Language {
         private readonly string _nameOfLang;
-        private readonly string _ticketType;
-        private readonly string _route;
-        private readonly string _guestOptions;
-        private readonly string _departure;
+        private readonly List<string> _ticketType;
+        private readonly List<string> _route;
+        private readonly List<string> _guestOptions;
+        private readonly List<string> _loginOptions;
+        private readonly List<string> _departure;
         private readonly string _starterOption;
-        private readonly string _paymentOptions;
-        private readonly string _finalMessage;
+        private readonly List<string> _paymentOptions;
+        private readonly List<string> _finalMessage;
+        private readonly string _optionText;
         
-        public Language(string nameOfLang, string ticketType, string route, string guestOptions, string departure, string starterOption, string paymentOptions, string finalMessage) {
+        public Language(string nameOfLang, List<string> ticketType, List<string> route, List<string> guestOptions, List<string> departure, string starterOption, List<string> paymentOptions, List<string> finalMessage, string optionText) {
             _nameOfLang = nameOfLang;
             _ticketType = ticketType;
             _route = route;
@@ -18,29 +22,30 @@
             _starterOption = starterOption;
             _paymentOptions = paymentOptions;
             _finalMessage = finalMessage;
+            _optionText = optionText;
         }
 
         public string GetNameOfLang() {
             return _nameOfLang;
         }
 
-        public string GetLogin() {
-            return "";
+        public List<string> GetLogin() {
+            return _loginOptions;
         }
 
-        public string GetTicketType() {
+        public List<string> GetTicketType() {
             return _ticketType ;
         }
 
-        public string GetRoute() {
+        public List<string> GetRoute() {
             return _route;
         }
 
-        public string GetGuestOptions() {
+        public List<string> GetGuestOptions() {
             return _guestOptions;
         }
 
-        public string GetDeparture() {
+        public List<string> GetDeparture() {
             return _departure;
         }
 
@@ -48,12 +53,20 @@
             return _starterOption;
         }
 
-        public string GetPaymentOptions() {
+        public List<string> GetPaymentOptions() {
             return _paymentOptions;
         }
 
-        public string GetFinalMessage() {
+        public List<string> GetFinalMessage() {
             return _finalMessage;
+        }
+
+        public string GetOptionText() {
+            return _optionText;
+        }
+
+        public override string ToString() {
+            return _nameOfLang;
         }
     }
 }

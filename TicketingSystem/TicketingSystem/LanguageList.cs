@@ -1,20 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TicketingSystem {
     public class LanguageList {
-        private readonly List<Language> _listOfLanguages;
+        private List<Language> ListOfLanguages;
 
         public LanguageList() {
-            _listOfLanguages = new List<Language>();
+            ListOfLanguages = new List<Language>();
         }
 
         public Language GetLanguageByName(string name) {
-            return _listOfLanguages.Where(x => x.GetNameOfLang() == name).First();
+            return ListOfLanguages.Where(x => x.GetNameOfLang() == name).First();
+        }
+
+        public List<Language> GetAllLanguages() {
+            return ListOfLanguages;
         }
 
         public void AddLanguage(Language lang) {
-            _listOfLanguages.Add(lang);
+            ListOfLanguages.Add(lang);
         }
     }
 }
