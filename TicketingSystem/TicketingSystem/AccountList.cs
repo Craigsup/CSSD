@@ -1,12 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace TicketingSystem
 {
-    internal class AccountList {
+    public class AccountList {
         private List<Account> _listOfAccounts;
 
+        public AccountList() {
+            _listOfAccounts = new List<Account>();
+        }
+
         public void AddCustomerAccount(CustomerAccount x) {
-            
+            _listOfAccounts.Add(x);
         }
 
         public Account GetAccountByCardId(int x) {
@@ -16,7 +21,6 @@ namespace TicketingSystem
         public Account GetAccountByUsername(string x) {
             return null;
         }
-
 
     }
 }

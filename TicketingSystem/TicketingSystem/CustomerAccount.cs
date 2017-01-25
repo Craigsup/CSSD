@@ -1,11 +1,17 @@
-﻿namespace TicketingSystem {
-    public class CustomerAccount : Account {
-        private int _cardId;
-        private float _balance;
+﻿using System;
+using System.Runtime.Serialization;
 
-        public CustomerAccount(int cardId, float balance, int accountId, string fullName, string password, bool loginStatus, string username) : base(accountId, fullName, password, loginStatus, username) {
+namespace TicketingSystem {
+    public class CustomerAccount : Account {
+        private int _cardId { get; }
+        private float _balance { get; }
+
+        public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
             _balance = balance;
+        }
+
+        public CustomerAccount() {
         }
 
         public int GetCardId() {
@@ -41,7 +47,7 @@
         }
 
         public void SetFreeTravel(bool x) {
-            
+
         }
 
         public bool GetFreeTravel() {
