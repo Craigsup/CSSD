@@ -15,9 +15,6 @@ namespace TicketingSystem {
         private string[] stations = new string[2533];
         private int _account;
 
-
-        private AccountList _accList;
-
         public TokenMachineGUI() {
             InitializeComponent();
 
@@ -48,7 +45,6 @@ namespace TicketingSystem {
             //System.IO.File.WriteAllText(@"Accounts.txt", Newtonsoft.Json.JsonConvert.SerializeObject(accList));
             accList.SaveData();
             //accList.LoadData();
-            _accList = accList;
         }
 
         private void DisplayLangList() {
@@ -393,24 +389,12 @@ namespace TicketingSystem {
         }
 
         private void tbUsername_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                LoginToAccount(tbUsername.Text, tbPassword.Text);
-            }
         }
 
         private void tbPassword_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                LoginToAccount(tbUsername.Text, tbPassword.Text);
-            }
         }
 
         private void LoginToAccount(string username, string password) {
-            _account = new CustomerAccount().VerifyLogin(username, password);
-            if (_account > -1) {
-                // Log in successful. Do something.
-            } else {
-                // Log in is unsuccessful - show error.
-            }
         }
 
         private void pbHome_Click(object sender, EventArgs e) {
