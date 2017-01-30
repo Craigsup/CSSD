@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicketingSystem {
+    [Serializable]
+    [DataContract]
     public class Account {
+        [DataMember]
         private int AccountID;
+        [DataMember]
         private string FullName;
+        [DataMember]
         private string Password;
+        [DataMember]
         private bool LoginStatus;
+        [DataMember]
         private string Username;
 
         public Account(int accountId, string username, string password, string fullName, bool loginStatus) {
@@ -23,7 +27,7 @@ namespace TicketingSystem {
         }
 
         public Account() {
-            
+
         }
 
         public Account GetAccount() {
@@ -39,7 +43,22 @@ namespace TicketingSystem {
         }
 
         public int VerifyLogin(string username, string password) {
-            return 0;
+            var x = username == Username && password == Password;
+            var accs = ReadFromBinaryFile<List<Account>>(@"Accounts.txt");
+            foreach (var account in accs) {
+                if (account.Username == username && account.Password == password) {
+                    return account.AccountID;
+                }
+            }
+
+            return -1;
+        }
+
+        public static T ReadFromBinaryFile<T>(string filePath) {
+            using (Stream stream = File.Open(filePath, FileMode.Open)) {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
+            }
         }
     }
 }

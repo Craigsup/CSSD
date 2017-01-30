@@ -14,6 +14,10 @@ namespace TicketingSystem {
         private LanguageList _langList;
         private string[] stations = new string[2533];
         private int _account;
+        private Stack<string> _actionStack = new Stack<string>(2);
+
+
+        private AccountList _accList;
 
         public TokenMachineGUI() {
             InitializeComponent();
@@ -21,7 +25,9 @@ namespace TicketingSystem {
             //SetupFile();
 
             stations = System.IO.File.ReadAllLines(@"UK_TrainStations.txt");
-            comboBox1.DataSource = stations;
+            cbStartStation.DataSource = stations;
+            cbEndStation.BindingContext = new BindingContext();
+            cbEndStation.DataSource = stations;
 
             SetupLanguages();
             DisplayLangList();
@@ -29,11 +35,11 @@ namespace TicketingSystem {
 
         private void SetupFile() {
             var rand = new Random();
-            var acc1 = new CustomerAccount(rand.Next(1000000, 9999999), 1, 0, "Bob", "password", "Bob Hitler", false);
-            var acc2 = new CustomerAccount(rand.Next(1000000, 9999999), 2, 0, "Rudy", "password", "Rudy Smeg", false);
-            var acc3 = new CustomerAccount(rand.Next(1000000, 9999999), 3, 0, "Judy", "password", "Judy Spagghettio", false);
-            var acc4 = new CustomerAccount(rand.Next(1000000, 9999999), 4, 0, "John", "password", "John Smith", false);
-            var acc5 = new CustomerAccount(rand.Next(1000000, 9999999), 5, 0, "Clarence", "password", "Clarence Angel", false);
+            var acc1 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 1, "Bob", "password", "Bob Hitler", false);
+            var acc2 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 2, "Rudy", "password", "Rudy Smeg", false);
+            var acc3 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 3, "Judy", "password", "Judy Spagghettio", false);
+            var acc4 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 4, "John", "password", "John Smith", false);
+            var acc5 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 5, "Clarence", "password", "Clarence Angel", false);
 
             AccountList accList = new AccountList();
             accList.AddCustomerAccount(acc1);
@@ -43,8 +49,9 @@ namespace TicketingSystem {
             accList.AddCustomerAccount(acc5);
 
             //System.IO.File.WriteAllText(@"Accounts.txt", Newtonsoft.Json.JsonConvert.SerializeObject(accList));
-            accList.SaveData();
+            //accList.SaveData();
             //accList.LoadData();
+            _accList = accList;
         }
 
         private void DisplayLangList() {
@@ -69,11 +76,11 @@ namespace TicketingSystem {
         private void GuestLogin() {
             // Hide Select Account Screen
             ToggleAccountOptions(false);
-                
+
             // Call DisplayGuestOptions
             DisplayGuestOptions();
         }
-            
+
         private void DisplayGuestOptions() {
             // Show Select Journey Type Screen
             ToggleJourneyOptions(true);
@@ -86,7 +93,7 @@ namespace TicketingSystem {
             // Show Timed Pass Screen
             ToggleSingleJourney(true);
         }
-
+        
         private void DisplayTimedPass() {
             // Hide Joruney Options
             ToggleJourneyOptions(false);
@@ -103,6 +110,14 @@ namespace TicketingSystem {
             TogglePaymentScreen(true);
         }
 
+        private void DisplayPaymentOptions2() {
+            // Hide Single Journey Screen
+            ToggleSingleJourney(false);
+
+            // Show Payment Screen
+            TogglePaymentScreen(true);
+        }
+
         private void DisplayFinalMessage() {
             // Hide Timed Pass Screen
             TogglePaymentScreen(false);
@@ -114,7 +129,7 @@ namespace TicketingSystem {
         private void Login() {
             // Hide Select Account Screen
             ToggleAccountOptions(false);
-
+            // Show Login Screen
             DisplayLoginScreen();
         }
 
@@ -151,8 +166,13 @@ namespace TicketingSystem {
          * Custom Toggle Functions to simplify screens
          */
         private void ToggleAccountOptions(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "AccountOptions") {
+                _actionStack.Push("AccountOptions");
+            }
             lblAccountTitle.Visible = !lblAccountTitle.Visible;
             lbAccountTypes.Visible = !lbAccountTypes.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
 
             if (show) {
                 lbAccountTypes.Focus();
@@ -162,17 +182,20 @@ namespace TicketingSystem {
                         lbAccountTypes.Items.Add(option);
                     }
                 }
-
                 if (lbAccountTypes.Items.Count > 0) {
                     lbAccountTypes.SelectedIndex = 0;
                 }
             }
-
         }
 
         private void ToggleLanguageScreen(bool show) {
+            if (_actionStack.Count == 0) {
+                _actionStack.Push("LanguageScreen");
+            }
             lbLanguages.Visible = !lbLanguages.Visible;
             lblLanguageTitle.Visible = !lblLanguageTitle.Visible;
+            pbHome.Visible = false;
+            pbBack.Visible = false;
 
             if (show) {
                 pbHome.Visible = false;
@@ -195,8 +218,13 @@ namespace TicketingSystem {
         }
 
         private void ToggleJourneyOptions(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "JourneyOptions") {
+                _actionStack.Push("JourneyOptions");
+            }
             lblJourneyTitle.Visible = !lblJourneyTitle.Visible;
             lbJourneyType.Visible = !lbJourneyType.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
 
             if (show) {
                 lbJourneyType.Focus();
@@ -213,21 +241,35 @@ namespace TicketingSystem {
         }
 
         private void ToggleSingleJourney(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "SingleJourney") {
+                _actionStack.Push("SingleJourney");
+            }
             lblStartStation.Visible = !lblStartStation.Visible;
             lblEndStation.Visible = !lblEndStation.Visible;
-            tbStartStation.Visible = !tbStartStation.Visible;
-            tbEndStation.Visible = !tbEndStation.Visible;
+            lblSingleJourneyPrice.Visible = !lblSingleJourneyPrice.Visible;
+            cbStartStation.Visible = !cbStartStation.Visible;
+            cbEndStation.Visible = !cbEndStation.Visible;
+            tbSingleJourneyPrice.Visible = !tbSingleJourneyPrice.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
+
             if (show) {
-                tbStartStation.Focus();
-                
+                cbStartStation.Focus();
+
             }
         }
 
         private void ToggleTimedPass(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "TimedPass") {
+                _actionStack.Push("TimedPass");
+            }
             nudTimedPass.Visible = !nudTimedPass.Visible;
             lblTimedPassTitle.Visible = !lblTimedPassTitle.Visible;
             lblNudQuantity.Visible = !lblNudQuantity.Visible;
             nudTicketQuantity.Visible = !nudTicketQuantity.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
+
             if (show) {
                 nudTimedPass.Focus();
                 nudTimedPass.Value = 1;
@@ -236,8 +278,13 @@ namespace TicketingSystem {
         }
 
         private void TogglePaymentScreen(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "PaymentScreen") {
+                _actionStack.Push("PaymentScreen");
+            }
             lblPaymentMethods.Visible = !lblPaymentMethods.Visible;
             lbPaymentMethods.Visible = !lbPaymentMethods.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
 
             if (show) {
                 lbPaymentMethods.Focus();
@@ -254,11 +301,16 @@ namespace TicketingSystem {
         }
 
         private void ToggleLoginScreen(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "LoginScreen") {
+                _actionStack.Push("LoginScreen");
+            }
             lblLoginScreen.Visible = !lblLoginScreen.Visible;
             lblUsername.Visible = !lblUsername.Visible;
             tbUsername.Visible = !tbUsername.Visible;
             lblPassword.Visible = !lblPassword.Visible;
             tbPassword.Visible = !tbPassword.Visible;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
 
             if (show) {
                 tbUsername.Focus();
@@ -269,6 +321,9 @@ namespace TicketingSystem {
         }
 
         private async void FinalMessage() {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "FinalMessage") {
+                _actionStack.Push("FinalMessage");
+            }
             lblFinalMessage.Visible = true;
             lblFinalMessage.Text = "";
             await Task.Delay(1000);
@@ -293,7 +348,7 @@ namespace TicketingSystem {
                 new List<string> { "Continue as guest", "Continue to account" },
                 new List<string>(),
                 "Select a Language",
-                new List<string> { "Pay by card", "Pay by cash", "Pay using balance" },
+                new List<string> { "Select payment option", "Pay by card", "Pay by cash", "Pay using balance" },
                 new List<string> { "Printing tickets" },
                 "Choose an option",
                 new List<string> { "Enter login details", "Username", "Password" },
@@ -322,7 +377,7 @@ namespace TicketingSystem {
                 "Escoge una opción",
                 new List<string> { "Introduzca los datos de acceso", "Nombre de usuario", "Contraseña" },
                 new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" }));
-                new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" };
+            new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" };
         }
 
 
@@ -387,17 +442,50 @@ namespace TicketingSystem {
                 }
             }
         }
+        private void cbEndStation_KeyDown(object sender, KeyEventArgs e) {
+            // Maybe change how to advance to payment screen - pressing enter is also how you pick the station in this combo box.
+            if (e.KeyData == Keys.Enter) {
+                DisplayPaymentOptions2();
+            }
+        }
+
+        private void cbStartStation_SelectedIndexChanged(object sender, EventArgs e) {
+            //Update price of ticket
+            if (cbEndStation.SelectedText != null) {
+                tbSingleJourneyPrice.Text = "£4.00";
+            }
+        }
+
+        private void cbEndStation_SelectedIndexChanged(object sender, EventArgs e) {
+            //Update price of ticket
+            if (cbStartStation.SelectedText != null) {
+                tbSingleJourneyPrice.Text = "£5.00";
+            }
+        }
 
         private void tbUsername_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                LoginToAccount(tbUsername.Text, tbPassword.Text);
+            }
         }
 
         private void tbPassword_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                LoginToAccount(tbUsername.Text, tbPassword.Text);
+            }
         }
 
         private void LoginToAccount(string username, string password) {
+            _account = new CustomerAccount().VerifyLogin(username, password);
+            if (_account > -1) {
+                // Log in successful. Do something.
+            } else {
+                // Log in is unsuccessful - show error.
+            }
         }
 
         private void pbHome_Click(object sender, EventArgs e) {
+            _actionStack.Clear();
             HideAll();
 
             ToggleLanguageScreen(true);
@@ -423,10 +511,56 @@ namespace TicketingSystem {
             foreach (var x in Controls.OfType<ListBox>()) {
                 x.Visible = false;
             }
+
+            foreach (var x in Controls.OfType<NumericUpDown>()) {
+                x.Visible = false;
+            }
+
+            foreach (var x in Controls.OfType<ComboBox>()) {
+                x.Visible = false;
+            }
         }
 
         private void pbBack_Click(object sender, EventArgs e) {
-
+            var first = _actionStack.Pop();
+            switch (_actionStack.Pop()) {
+                case "LanguageScreen":
+                    HideAll();
+                    ToggleLanguageScreen(false);
+                    lbLanguages.Focus();
+                    break;
+                case "AccountOptions":
+                    HideAll();
+                    ToggleAccountOptions(false);
+                    lbAccountTypes.Focus();
+                    break;
+                case "LoginScreen":
+                    HideAll();
+                    ToggleLoginScreen(false);
+                    tbUsername.Focus();
+                    break;
+                case "JourneyOptions":
+                    HideAll();
+                    ToggleJourneyOptions(false);
+                    lbJourneyType.Focus();
+                    break;
+                case "TimedPass":
+                    HideAll();
+                    ToggleTimedPass(false);
+                    break;
+            }
         }
+
+        
+
+        
+
+        
+
+        
+
+        
+
+
     }
 }

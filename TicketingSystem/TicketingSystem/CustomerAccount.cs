@@ -2,8 +2,12 @@
 using System.Runtime.Serialization;
 
 namespace TicketingSystem {
+    [Serializable]
+    [DataContract]
     public class CustomerAccount : Account {
+        [DataMember]
         private int _cardId { get; }
+        [DataMember]
         private float _balance { get; }
 
         public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {

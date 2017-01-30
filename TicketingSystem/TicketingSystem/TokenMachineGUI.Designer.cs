@@ -37,11 +37,9 @@
             this.lblPaymentMethods = new System.Windows.Forms.Label();
             this.lbPaymentMethods = new System.Windows.Forms.ListBox();
             this.lblFinalMessage = new System.Windows.Forms.Label();
-            this.tbStartStation = new System.Windows.Forms.TextBox();
             this.lblStartStation = new System.Windows.Forms.Label();
             this.lblEndStation = new System.Windows.Forms.Label();
-            this.tbEndStation = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbEndStation = new System.Windows.Forms.ComboBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
@@ -49,6 +47,9 @@
             this.lblLoginScreen = new System.Windows.Forms.Label();
             this.pbBack = new System.Windows.Forms.PictureBox();
             this.pbHome = new System.Windows.Forms.PictureBox();
+            this.cbStartStation = new System.Windows.Forms.ComboBox();
+            this.tbSingleJourneyPrice = new System.Windows.Forms.TextBox();
+            this.lblSingleJourneyPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimedPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTicketQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
@@ -226,24 +227,15 @@
             this.lblFinalMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblFinalMessage.Visible = false;
             // 
-            // tbStartStation
-            // 
-            this.tbStartStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.tbStartStation.Location = new System.Drawing.Point(117, 154);
-            this.tbStartStation.Name = "tbStartStation";
-            this.tbStartStation.Size = new System.Drawing.Size(171, 29);
-            this.tbStartStation.TabIndex = 13;
-            this.tbStartStation.Visible = false;
-            // 
             // lblStartStation
             // 
             this.lblStartStation.AutoSize = true;
             this.lblStartStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblStartStation.Location = new System.Drawing.Point(119, 126);
             this.lblStartStation.Name = "lblStartStation";
-            this.lblStartStation.Size = new System.Drawing.Size(121, 24);
+            this.lblStartStation.Size = new System.Drawing.Size(107, 24);
             this.lblStartStation.TabIndex = 14;
-            this.lblStartStation.Text = "lblStartStation";
+            this.lblStartStation.Text = "Start Station";
             this.lblStartStation.Visible = false;
             // 
             // lblEndStation
@@ -252,30 +244,23 @@
             this.lblEndStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblEndStation.Location = new System.Drawing.Point(119, 197);
             this.lblEndStation.Name = "lblEndStation";
-            this.lblEndStation.Size = new System.Drawing.Size(120, 24);
+            this.lblEndStation.Size = new System.Drawing.Size(106, 24);
             this.lblEndStation.TabIndex = 15;
-            this.lblEndStation.Text = "lblEndStation";
+            this.lblEndStation.Text = "End Station";
             this.lblEndStation.Visible = false;
             // 
-            // tbEndStation
+            // cbEndStation
             // 
-            this.tbEndStation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.tbEndStation.Location = new System.Drawing.Point(117, 226);
-            this.tbEndStation.Name = "tbEndStation";
-            this.tbEndStation.Size = new System.Drawing.Size(171, 29);
-            this.tbEndStation.TabIndex = 16;
-            this.tbEndStation.Visible = false;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(193, 349);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.Visible = false;
+            this.cbEndStation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbEndStation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbEndStation.FormattingEnabled = true;
+            this.cbEndStation.Location = new System.Drawing.Point(117, 224);
+            this.cbEndStation.Name = "cbEndStation";
+            this.cbEndStation.Size = new System.Drawing.Size(121, 21);
+            this.cbEndStation.TabIndex = 17;
+            this.cbEndStation.Visible = false;
+            this.cbEndStation.SelectedIndexChanged += new System.EventHandler(this.cbEndStation_SelectedIndexChanged);
+            this.cbEndStation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbEndStation_KeyDown);
             // 
             // lblPassword
             // 
@@ -355,11 +340,50 @@
             this.pbHome.Visible = false;
             this.pbHome.Click += new System.EventHandler(this.pbHome_Click);
             // 
+            // cbStartStation
+            // 
+            this.cbStartStation.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbStartStation.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbStartStation.FormattingEnabled = true;
+            this.cbStartStation.Location = new System.Drawing.Point(117, 153);
+            this.cbStartStation.Name = "cbStartStation";
+            this.cbStartStation.Size = new System.Drawing.Size(121, 21);
+            this.cbStartStation.TabIndex = 25;
+            this.cbStartStation.Visible = false;
+            this.cbStartStation.SelectedIndexChanged += new System.EventHandler(this.cbStartStation_SelectedIndexChanged);
+            // 
+            // tbSingleJourneyPrice
+            // 
+            this.tbSingleJourneyPrice.Enabled = false;
+            this.tbSingleJourneyPrice.Location = new System.Drawing.Point(332, 223);
+            this.tbSingleJourneyPrice.Name = "tbSingleJourneyPrice";
+            this.tbSingleJourneyPrice.ReadOnly = true;
+            this.tbSingleJourneyPrice.Size = new System.Drawing.Size(100, 20);
+            this.tbSingleJourneyPrice.TabIndex = 26;
+            this.tbSingleJourneyPrice.Visible = false;
+            // 
+            // lblSingleJourneyPrice
+            // 
+            this.lblSingleJourneyPrice.AutoSize = true;
+            this.lblSingleJourneyPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblSingleJourneyPrice.Location = new System.Drawing.Point(328, 197);
+            this.lblSingleJourneyPrice.Name = "lblSingleJourneyPrice";
+            this.lblSingleJourneyPrice.Size = new System.Drawing.Size(108, 24);
+            this.lblSingleJourneyPrice.TabIndex = 27;
+            this.lblSingleJourneyPrice.Text = "Ticket Price";
+            this.lblSingleJourneyPrice.Visible = false;
+            // 
             // TokenMachineGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(510, 404);
+            this.Controls.Add(this.lblSingleJourneyPrice);
+            this.Controls.Add(this.tbSingleJourneyPrice);
+            this.Controls.Add(this.cbEndStation);
+            this.Controls.Add(this.lblStartStation);
+            this.Controls.Add(this.lblEndStation);
+            this.Controls.Add(this.cbStartStation);
             this.Controls.Add(this.pbHome);
             this.Controls.Add(this.pbBack);
             this.Controls.Add(this.lblPassword);
@@ -367,11 +391,6 @@
             this.Controls.Add(this.tbUsername);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblLoginScreen);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.tbEndStation);
-            this.Controls.Add(this.lblEndStation);
-            this.Controls.Add(this.lblStartStation);
-            this.Controls.Add(this.tbStartStation);
             this.Controls.Add(this.lblFinalMessage);
             this.Controls.Add(this.lbPaymentMethods);
             this.Controls.Add(this.lblPaymentMethods);
@@ -385,6 +404,7 @@
             this.Controls.Add(this.lblLanguageTitle);
             this.Controls.Add(this.lbAccountTypes);
             this.Controls.Add(this.lbLanguages);
+            this.DoubleBuffered = true;
             this.Name = "TokenMachineGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TokenMachineGUI";
@@ -412,11 +432,9 @@
         private System.Windows.Forms.Label lblPaymentMethods;
         private System.Windows.Forms.ListBox lbPaymentMethods;
         private System.Windows.Forms.Label lblFinalMessage;
-        private System.Windows.Forms.TextBox tbStartStation;
         private System.Windows.Forms.Label lblStartStation;
         private System.Windows.Forms.Label lblEndStation;
-        private System.Windows.Forms.TextBox tbEndStation;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbEndStation;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.TextBox tbUsername;
@@ -424,5 +442,8 @@
         private System.Windows.Forms.Label lblLoginScreen;
         private System.Windows.Forms.PictureBox pbBack;
         private System.Windows.Forms.PictureBox pbHome;
+        private System.Windows.Forms.ComboBox cbStartStation;
+        private System.Windows.Forms.TextBox tbSingleJourneyPrice;
+        private System.Windows.Forms.Label lblSingleJourneyPrice;
     }
 }
