@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace TicketingSystem {
@@ -6,9 +7,9 @@ namespace TicketingSystem {
     [DataContract]
     public class CustomerAccount : Account {
         [DataMember]
-        private int _cardId { get; }
+        protected int _cardId;
         [DataMember]
-        private float _balance { get; }
+        protected float _balance;
 
         public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
@@ -22,8 +23,30 @@ namespace TicketingSystem {
             return 0;
         }
 
+        public T GetXByAccountId<T>(int accountId, string x)
+        {
+            var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
+            foreach (var account in accs)
+            {
+                if (accountId == account._accountId)
+                {
+                    switch(x){
+                        case "balance":
+                            return (T)Convert.ChangeType(account._balance, typeof(T));
+                        case "cardid":
+                            return (T)Convert.ChangeType(account._cardId, typeof(T));
+                        case "fullname":
+                            return (T)Convert.ChangeType(account._fullName, typeof(T));
+                        case "username":
+                            return (T)Convert.ChangeType(account._username, typeof(T));
+                    }
+                }
+            }
+            return default(T);
+        }
+
         public float GetBalance() {
-            return 0f;
+            return _balance;
         }
 
         public void GetAllJourneys() {
@@ -31,7 +54,7 @@ namespace TicketingSystem {
         }
 
         public void UpdateBalance(float x) {
-
+            _balance += x;
         }
 
         public void SetStartPoint(Station x) {
@@ -56,6 +79,10 @@ namespace TicketingSystem {
 
         public bool GetFreeTravel() {
             return false;
+        }
+
+	public void TopUpBalance(int accountId, float topUp){
+            new AccountList().UpdateData(accountId, topUp);
         }
     }
 }

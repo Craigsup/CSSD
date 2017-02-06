@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\TicketingSystem.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -105,6 +106,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TokenMachineGUI.resx">
       <DependentUpon>TokenMachineGUI.cs</DependentUpon>
@@ -124,6 +126,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Media\5.jpg" />
+    <None Include="Media\1.jpg" />
+    <None Include="Media\2.jpg" />
+    <None Include="Media\3.jpg" />
+    <None Include="Media\4.jpg" />
     <Content Include="Media\Icons\BackIcon.png" />
     <Content Include="Media\Icons\HomeIcon.jpg" />
     <Content Include="UK_TrainStations.txt">

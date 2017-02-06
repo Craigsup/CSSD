@@ -127,6 +127,11 @@
             // nudTimedPass
             // 
             this.nudTimedPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudTimedPass.Increment = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.nudTimedPass.Location = new System.Drawing.Point(119, 207);
             this.nudTimedPass.Minimum = new decimal(new int[] {
             1,
@@ -143,6 +148,8 @@
             0});
             this.nudTimedPass.Visible = false;
             this.nudTimedPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudTimedPass_KeyDown);
+            this.nudTimedPass.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudTimedPass_KeyUp);
+            this.nudTimedPass.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nudTimedPass_MouseDown);
             // 
             // lblTimedPassTitle
             // 
@@ -268,7 +275,7 @@
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblPassword.Location = new System.Drawing.Point(117, 188);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(92, 24);
+            this.lblPassword.Size = new System.Drawing.Size(101, 24);
             this.lblPassword.TabIndex = 22;
             this.lblPassword.Text = "Password";
             this.lblPassword.Visible = false;
@@ -300,7 +307,7 @@
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblUsername.Location = new System.Drawing.Point(117, 129);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(97, 24);
+            this.lblUsername.Size = new System.Drawing.Size(105, 24);
             this.lblUsername.TabIndex = 19;
             this.lblUsername.Text = "Username";
             this.lblUsername.Visible = false;
@@ -380,30 +387,30 @@
             this.ClientSize = new System.Drawing.Size(510, 404);
             this.Controls.Add(this.lblSingleJourneyPrice);
             this.Controls.Add(this.tbSingleJourneyPrice);
-            this.Controls.Add(this.cbEndStation);
             this.Controls.Add(this.lblStartStation);
-            this.Controls.Add(this.lblEndStation);
-            this.Controls.Add(this.cbStartStation);
             this.Controls.Add(this.pbHome);
             this.Controls.Add(this.pbBack);
-            this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.tbUsername);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.lblLoginScreen);
             this.Controls.Add(this.lblFinalMessage);
-            this.Controls.Add(this.lbPaymentMethods);
-            this.Controls.Add(this.lblPaymentMethods);
             this.Controls.Add(this.lblNudQuantity);
             this.Controls.Add(this.nudTicketQuantity);
             this.Controls.Add(this.lblTimedPassTitle);
             this.Controls.Add(this.nudTimedPass);
-            this.Controls.Add(this.lbJourneyType);
             this.Controls.Add(this.lblJourneyTitle);
             this.Controls.Add(this.lblAccountTitle);
             this.Controls.Add(this.lblLanguageTitle);
+            this.Controls.Add(this.lblPaymentMethods);
+            this.Controls.Add(this.lbJourneyType);
             this.Controls.Add(this.lbAccountTypes);
+            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.lblEndStation);
+            this.Controls.Add(this.lblPassword);
+            this.Controls.Add(this.cbEndStation);
             this.Controls.Add(this.lbLanguages);
+            this.Controls.Add(this.lbPaymentMethods);
+            this.Controls.Add(this.cbStartStation);
             this.DoubleBuffered = true;
             this.Name = "TokenMachineGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

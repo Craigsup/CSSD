@@ -1,5 +1,5 @@
 ﻿namespace TicketingSystem {
-    class SmartCard {
+    public class SmartCard {
         private readonly int _cardId;
 
         public SmartCard(int cardId) {

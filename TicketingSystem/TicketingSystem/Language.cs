@@ -13,8 +13,9 @@ namespace TicketingSystem {
         private readonly List<string> _finalMessage;
         private readonly string _optionText;
         private readonly List<string> _loginText;
+        private readonly List<string> _timedPassTitles;
 
-        public Language(string nameOfLang, List<string> ticketType, List<string> route, List<string> guestOptions, List<string> departure, string starterOption, List<string> paymentOptions, List<string> finalMessage, string optionText, List<string> loginText, List<string> loginOptions) {
+        public Language(string nameOfLang, List<string> ticketType, List<string> route, List<string> guestOptions, List<string> departure, string starterOption, List<string> paymentOptions, List<string> finalMessage, string optionText, List<string> loginText, List<string> loginOptions, List<string> timedPassTitles ) {
             _nameOfLang = nameOfLang;
             _ticketType = ticketType;
             _route = route;
@@ -26,6 +27,7 @@ namespace TicketingSystem {
             _optionText = optionText;
             _loginText = loginText;
             _loginOptions = loginOptions;
+            _timedPassTitles = timedPassTitles;
         }
 
         public string GetNameOfLang() {
@@ -66,6 +68,10 @@ namespace TicketingSystem {
 
         public string GetOptionText() {
             return _optionText;
+        }
+
+        public List<string> GetTimedPassTitles() {
+            return _timedPassTitles;
         }
 
         public override string ToString() {

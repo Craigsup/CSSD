@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem
 {
-    internal class TokenValidator
+    public class TokenValidator
     {
         public bool CheckDeparture(Ticket x) {
             return false;

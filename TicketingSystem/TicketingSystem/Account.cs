@@ -8,22 +8,22 @@ namespace TicketingSystem {
     [DataContract]
     public class Account {
         [DataMember]
-        private int AccountID;
+        protected int _accountId;
         [DataMember]
-        private string FullName;
+        protected string _fullName;
         [DataMember]
-        private string Password;
+        protected string _password;
         [DataMember]
-        private bool LoginStatus;
+        protected bool _loginStatus;
         [DataMember]
-        private string Username;
+        protected string _username;
 
         public Account(int accountId, string username, string password, string fullName, bool loginStatus) {
-            AccountID = accountId;
-            FullName = fullName;
-            Password = password;
-            LoginStatus = loginStatus;
-            Username = username;
+            _accountId = accountId;
+            _fullName = fullName;
+            _password = password;
+            _loginStatus = loginStatus;
+            _username = username;
         }
 
         public Account() {
@@ -35,23 +35,36 @@ namespace TicketingSystem {
         }
 
         public string GetName() {
-            return FullName;
+            return _fullName;
         }
 
         public string GetUsername() {
-            return Username;
+            return _username;
         }
 
         public int VerifyLogin(string username, string password) {
-            var x = username == Username && password == Password;
-            var accs = ReadFromBinaryFile<List<Account>>(@"Accounts.txt");
+            var x = username == _username && password == _password;
+            var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             foreach (var account in accs) {
-                if (account.Username == username && account.Password == password) {
-                    return account.AccountID;
+                if (account._username == username && account._password == password) {
+                    return account._accountId;
                 }
             }
 
             return -1;
+        }
+
+        public Account VerifyLoginAndReturnAccount(int userId)
+        {
+            var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
+            foreach (var account in accs)
+            {
+                if (userId == account._accountId)
+                {
+                    return account;
+                }
+            }
+            return null;
         }
 
         public static T ReadFromBinaryFile<T>(string filePath) {

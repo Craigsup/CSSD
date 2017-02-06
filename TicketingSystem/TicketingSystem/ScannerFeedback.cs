@@ -1,6 +1,6 @@
 ﻿namespace TicketingSystem
 {
-    internal class ScannerFeedback {
+    public class ScannerFeedback {
         private string _successMsg;
         private string _failureMsg;
 

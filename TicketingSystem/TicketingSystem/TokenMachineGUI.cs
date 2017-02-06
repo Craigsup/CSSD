@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace TicketingSystem {
@@ -14,7 +15,8 @@ namespace TicketingSystem {
         private LanguageList _langList;
         private string[] stations = new string[2533];
         private int _account;
-        private Stack<string> _actionStack = new Stack<string>(2);
+        private Stack<string> _actionStack = new Stack<string>();
+        private List<int> nudAcceptedValues = new List<int>() { 1, 3, 5, 7, 10, 28 };
 
 
         private AccountList _accList;
@@ -22,7 +24,7 @@ namespace TicketingSystem {
         public TokenMachineGUI() {
             InitializeComponent();
 
-            //SetupFile();
+            SetupFile();
 
             stations = System.IO.File.ReadAllLines(@"UK_TrainStations.txt");
             cbStartStation.DataSource = stations;
@@ -49,7 +51,7 @@ namespace TicketingSystem {
             accList.AddCustomerAccount(acc5);
 
             //System.IO.File.WriteAllText(@"Accounts.txt", Newtonsoft.Json.JsonConvert.SerializeObject(accList));
-            //accList.SaveData();
+            accList.SaveData();
             //accList.LoadData();
             _accList = accList;
         }
@@ -203,13 +205,14 @@ namespace TicketingSystem {
                 lbLanguages.Focus();
                 if (lbLanguages.Items.Count < 1) {
                     var tempString = "";
+                    var gap = lbLanguages.Location.Y - lblLanguageTitle.Location.Y;
                     foreach (var language in _langList.GetAllLanguages()) {
                         lbLanguages.Items.Add(language);
-                        tempString += language.GetStarterOption() + "\n";
-                        lbLanguages.Location = new Point(lbLanguages.Location.X, lbLanguages.Location.Y + 19);
+                        //tempString += language.GetStarterOption() + "\n";
+                        //lbLanguages.Location = new Point(lbLanguages.Location.X, lbLanguages.Location.Y + 19);
                     }
 
-                    lblLanguageTitle.Text = tempString;
+                    //lblLanguageTitle.Text = _lang.GetStarterOption();
                 }
                 if (lbLanguages.Items.Count > 0) {
                     lbLanguages.SelectedIndex = 0;
@@ -281,6 +284,7 @@ namespace TicketingSystem {
             if (_actionStack.Count > 0 && _actionStack.Peek() != "PaymentScreen") {
                 _actionStack.Push("PaymentScreen");
             }
+
             lblPaymentMethods.Visible = !lblPaymentMethods.Visible;
             lbPaymentMethods.Visible = !lbPaymentMethods.Visible;
             pbBack.Visible = !pbBack.Visible;
@@ -290,8 +294,16 @@ namespace TicketingSystem {
                 lbPaymentMethods.Focus();
                 if (lbPaymentMethods.Items.Count < 1) {
                     lblPaymentMethods.Text = _lang.GetPaymentOptions()[0];
-                    foreach (var option in _lang.GetPaymentOptions().GetRange(1, _lang.GetPaymentOptions().Count - 1)) {
-                        lbPaymentMethods.Items.Add(option);
+                    if (_account > -1) {
+                        foreach (
+                            var option in _lang.GetPaymentOptions().GetRange(1, _lang.GetPaymentOptions().Count - 1)) {
+                            lbPaymentMethods.Items.Add(option);
+                        }
+                    }
+                    else {
+                        foreach (var option in _lang.GetPaymentOptions().GetRange(1, _lang.GetPaymentOptions().Count - 2)) {
+                            lbPaymentMethods.Items.Add(option);
+                        }
                     }
                 }
                 if (lbPaymentMethods.Items.Count > 0) {
@@ -332,6 +344,7 @@ namespace TicketingSystem {
                 await Task.Delay(3000);
             }
             lblFinalMessage.Visible = false;
+            ResetControls();
             ToggleLanguageScreen(true);
         }
 
@@ -352,7 +365,8 @@ namespace TicketingSystem {
                 new List<string> { "Printing tickets" },
                 "Choose an option",
                 new List<string> { "Enter login details", "Username", "Password" },
-                new List<string> { "Top-up balance", "Print temporary pass", "Single Journey" }));
+                new List<string> { "Top-up balance", "Print temporary pass", "Single Journey" },
+                new List<string> { "Pass Days", "Quantity" }));
 
             _langList.AddLanguage(new Language("Deutsche",
                 new List<string> { "Einzelreise", "Zeitmessung" },
@@ -364,7 +378,8 @@ namespace TicketingSystem {
                 new List<string> { "Drucktickets" },
                 "Wähle eine Option",
                 new List<string> { "Login-Details eingeben", "Benutzername", "Passwort" },
-                new List<string> { "Top-up balance", "Temporary Pass drucken", "Single Journey" }));
+                new List<string> { "Top-up balance", "Temporary Pass drucken", "Single Farht" },
+                new List<string> { "Pass Tage", "Anzahl" }));
 
             _langList.AddLanguage(new Language("Español",
                 new List<string> { "Viaje Único", "Pase de Tiempo" },
@@ -376,8 +391,8 @@ namespace TicketingSystem {
                 new List<string> { "Impresión de boletos" },
                 "Escoge una opción",
                 new List<string> { "Introduzca los datos de acceso", "Nombre de usuario", "Contraseña" },
-                new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" }));
-            new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" };
+                new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" },
+                new List<string> { "Pasar días", "Cantidad" }));
         }
 
 
@@ -387,6 +402,7 @@ namespace TicketingSystem {
          */
         private void SelectLanguage(object sender, EventArgs e) {
             _lang = (Language)lbLanguages.SelectedItem;
+            lblLanguageTitle.Text = _lang.GetStarterOption();
         }
 
         private void lbLanguages_KeyDown(object sender, KeyEventArgs e) {
@@ -399,6 +415,7 @@ namespace TicketingSystem {
             if (e.KeyData == Keys.Enter) {
                 if (lbAccountTypes.SelectedIndex == 0) {
                     GuestLogin();
+                    _account = -1;
                 } else if (lbAccountTypes.SelectedIndex == 1) {
                     Login();
                 } else {
@@ -419,11 +436,6 @@ namespace TicketingSystem {
             }
         }
 
-        private void nudTimedPass_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyData == Keys.Enter) {
-                DisplayPaymentOptions();
-            }
-        }
 
         private void nudTicketQuantity_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyData == Keys.Enter) {
@@ -442,6 +454,7 @@ namespace TicketingSystem {
                 }
             }
         }
+
         private void cbEndStation_KeyDown(object sender, KeyEventArgs e) {
             // Maybe change how to advance to payment screen - pressing enter is also how you pick the station in this combo box.
             if (e.KeyData == Keys.Enter) {
@@ -465,29 +478,55 @@ namespace TicketingSystem {
 
         private void tbUsername_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyData == Keys.Enter) {
-                LoginToAccount(tbUsername.Text, tbPassword.Text);
+                if (tbUsername.Text != "" && tbPassword.Text != "") {
+                    LoginToAccount(tbUsername.Text, tbPassword.Text);
+                }
             }
         }
 
         private void tbPassword_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyData == Keys.Enter) {
-                LoginToAccount(tbUsername.Text, tbPassword.Text);
+                if (tbUsername.Text != "" && tbPassword.Text != "") {
+                    LoginToAccount(tbUsername.Text, tbPassword.Text);
+                }
             }
         }
 
         private void LoginToAccount(string username, string password) {
             _account = new CustomerAccount().VerifyLogin(username, password);
-            if (_account > -1) {
+            if (_account > -1) {    
                 // Log in successful. Do something.
+                MessageBox.Show(this, "Succesfull");
+                ConfigureGuiForLogin();
+                ToggleLoginScreen(false);
+                ToggleJourneyOptions(true);
             } else {
                 // Log in is unsuccessful - show error.
+                MessageBox.Show(this, "FAILURE KILL YOURSELF");
             }
+        }
+
+        private void ConfigureGuiForLogin() {
+            PictureBox userPicture = new PictureBox();
+            userPicture.Location = new Point(Width - 150, 15);
+            userPicture.Image = (Image) Properties.Resources.ResourceManager.GetObject("_"+_account);
+            userPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            userPicture.Size = new Size(38, 38);
+            userPicture.Visible = true;
+            Controls.Add(userPicture);
+            Label userName = new Label();
+            userName.Text = new CustomerAccount().GetXByAccountId<string>(_account, "username");
+            userName.Location = new Point(Width - 150 + userPicture.Width+3, 15);
+            userName.AutoSize = true;
+            userPicture.Visible = true;
+            Controls.Add(userName);
         }
 
         private void pbHome_Click(object sender, EventArgs e) {
             _actionStack.Clear();
             HideAll();
 
+            ResetControls();
             ToggleLanguageScreen(true);
         }
 
@@ -521,12 +560,49 @@ namespace TicketingSystem {
             }
         }
 
+        private void ResetControls() {
+            foreach (var x in Controls.OfType<Button>()) {
+                x.Text = "";
+            }
+
+            //foreach (var x in Controls.OfType<Label>()) {
+                //x.Text = "";
+            //}
+
+            foreach (var x in Controls.OfType<TextBox>()) {
+                x.Text = "";
+            }
+
+            foreach (var x in Controls.OfType<ListBox>()) {
+                x.Items.Clear();
+            }
+
+            foreach (var x in Controls.OfType<NumericUpDown>()) {
+                x.Value = 1;
+            }
+
+            foreach (var x in Controls.OfType<ComboBox>()) {
+                // x.Items.Clear();
+                // Cannot do this as it's bound by a datasource. Need to change the datasource to change the items in the combobox. 
+                // So when changing language, set the new datasource.
+            }
+
+            foreach (var x in Controls.OfType<PictureBox>()) {
+                if (x.Name.Contains("account")) {
+                    Controls.Remove(x);
+                    x.Dispose();
+                }
+            }
+        }
+
         private void pbBack_Click(object sender, EventArgs e) {
-            var first = _actionStack.Pop();
+            // Pop first to remove the page we are currently on. Then the next Pop is the actual page we want to return to.
+            _actionStack.Pop();
             switch (_actionStack.Pop()) {
                 case "LanguageScreen":
                     HideAll();
-                    ToggleLanguageScreen(false);
+                    ResetControls();
+                    ToggleLanguageScreen(true);
                     lbLanguages.Focus();
                     break;
                 case "AccountOptions":
@@ -547,20 +623,47 @@ namespace TicketingSystem {
                 case "TimedPass":
                     HideAll();
                     ToggleTimedPass(false);
+                    nudTimedPass.Focus();
                     break;
             }
         }
 
-        
+        private void nudTimedPass_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Enter) {
+                DisplayPaymentOptions();
+            }
 
-        
+            if (e.KeyData == Keys.Down) {
+                int number = (int)nudTimedPass.Value;
+                if (nudAcceptedValues.Contains(number)) {
+                    var currentIndex = nudAcceptedValues.IndexOf(number) - 1;
+                    nudTimedPass.Value =
+                        nudAcceptedValues[currentIndex < 0 ? nudAcceptedValues.Count - 1 : currentIndex];
+                }
+            }
+        }
 
-        
+        private void nudTimedPass_KeyUp(object sender, KeyEventArgs e) {
+            if (e.KeyData == Keys.Up) {
+                int number = (int)nudTimedPass.Value;
+                if (nudAcceptedValues.Contains(number)) {
+                    var currentIndex = nudAcceptedValues.IndexOf(number)+1;
+                    nudTimedPass.Value =
+                        nudAcceptedValues[currentIndex >= nudAcceptedValues.Count ? 0 : currentIndex];
+                }
+            }
+        }
 
-        
-
-        
-
-
+        private void nudTimedPass_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                int number = (int)nudTimedPass.Value;
+                if (nudAcceptedValues.Contains(number)) {
+                    var currentIndex = nudAcceptedValues.IndexOf(number) + 1;
+                    nudTimedPass.Value =
+                        nudAcceptedValues[currentIndex >= nudAcceptedValues.Count ? 0 : currentIndex];
+                }
+            }
+           
+        }
     }
 }
