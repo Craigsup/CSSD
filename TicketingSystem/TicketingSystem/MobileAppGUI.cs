@@ -70,8 +70,24 @@ namespace TicketingSystem {
 
             foreach (var option in new CustomerAccount().GetXByAccountId<List<string>>(_account, "paymentoptions")) {
                 lbPaymentOptions.Items.Add(option);
-                
             }
+            lbPaymentOptions.Items.Add("New Payment Method");
+            lbPaymentOptions.SelectedIndex = 0;
+
+        }
+
+        private void ShowCvvScreen()
+        {
+            lblPaymentTitle.Visible = false;
+            lbPaymentOptions.Visible = false;
+            btnPaymentOptions.Visible = false;
+
+            lblCvvText.Text = "Enter your CVV for the card ending in: \n" + lbPaymentOptions.SelectedItem.ToString().Substring(14);
+            lblCvvText.Visible = true;
+            lblCvvTitle.Visible = true;
+            tbCvvNumber.Visible = true;
+
+
         }
 
 
@@ -253,7 +269,21 @@ namespace TicketingSystem {
         }
 
         private void btnPaymentOptions_Click(object sender, System.EventArgs e) {
+            if(lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1)
+            {
+                ShowCvvScreen();
+                //add payment stuff
+            }
+            else
+            {
+                ShowCvvScreen();
+            }
+        }
 
+        private void btnCvvScreen_Click(object sender, System.EventArgs e)
+        {
+
+            //do cvv check stuff
         }
     }
 }

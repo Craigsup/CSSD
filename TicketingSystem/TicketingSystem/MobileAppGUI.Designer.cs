@@ -47,6 +47,10 @@
             this.lblPaymentTitle = new System.Windows.Forms.Label();
             this.lbPaymentOptions = new System.Windows.Forms.ListBox();
             this.btnPaymentOptions = new System.Windows.Forms.Button();
+            this.lblCvvTitle = new System.Windows.Forms.Label();
+            this.lblCvvText = new System.Windows.Forms.Label();
+            this.tbCvvNumber = new System.Windows.Forms.TextBox();
+            this.btnCvvScreen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -345,12 +349,65 @@
             this.btnPaymentOptions.Visible = false;
             this.btnPaymentOptions.Click += new System.EventHandler(this.btnPaymentOptions_Click);
             // 
+            // lblCvvTitle
+            // 
+            this.lblCvvTitle.AutoSize = true;
+            this.lblCvvTitle.BackColor = System.Drawing.Color.Black;
+            this.lblCvvTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblCvvTitle.ForeColor = System.Drawing.Color.White;
+            this.lblCvvTitle.Location = new System.Drawing.Point(64, 36);
+            this.lblCvvTitle.Name = "lblCvvTitle";
+            this.lblCvvTitle.Size = new System.Drawing.Size(180, 24);
+            this.lblCvvTitle.TabIndex = 26;
+            this.lblCvvTitle.Text = "Confirm Your Details";
+            // 
+            // lblCvvText
+            // 
+            this.lblCvvText.AutoSize = true;
+            this.lblCvvText.BackColor = System.Drawing.Color.White;
+            this.lblCvvText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lblCvvText.Location = new System.Drawing.Point(21, 82);
+            this.lblCvvText.Name = "lblCvvText";
+            this.lblCvvText.Size = new System.Drawing.Size(284, 20);
+            this.lblCvvText.TabIndex = 27;
+            this.lblCvvText.Text = "Enter your CVV for the card ending in : ";
+            this.lblCvvText.Visible = false;
+            // 
+            // tbCvvNumber
+            // 
+            this.tbCvvNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.tbCvvNumber.Location = new System.Drawing.Point(98, 214);
+            this.tbCvvNumber.Name = "tbCvvNumber";
+            this.tbCvvNumber.Size = new System.Drawing.Size(100, 29);
+            this.tbCvvNumber.TabIndex = 28;
+            this.tbCvvNumber.Visible = false;
+            // 
+            // btnCvvScreen
+            // 
+            this.btnCvvScreen.BackColor = System.Drawing.Color.GreenYellow;
+            this.btnCvvScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCvvScreen.FlatAppearance.BorderColor = System.Drawing.Color.GreenYellow;
+            this.btnCvvScreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCvvScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.btnCvvScreen.Location = new System.Drawing.Point(98, 295);
+            this.btnCvvScreen.Name = "btnCvvScreen";
+            this.btnCvvScreen.Size = new System.Drawing.Size(120, 49);
+            this.btnCvvScreen.TabIndex = 29;
+            this.btnCvvScreen.Text = "Confirm";
+            this.btnCvvScreen.UseVisualStyleBackColor = false;
+            this.btnCvvScreen.Visible = false;
+            this.btnCvvScreen.Click += new System.EventHandler(this.btnCvvScreen_Click);
+            // 
             // MobileAppGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
+            this.Controls.Add(this.btnCvvScreen);
+            this.Controls.Add(this.tbCvvNumber);
+            this.Controls.Add(this.lblCvvText);
+            this.Controls.Add(this.lblCvvTitle);
             this.Controls.Add(this.btnPaymentOptions);
             this.Controls.Add(this.lbPaymentOptions);
             this.Controls.Add(this.lblPaymentTitle);
@@ -408,5 +465,9 @@
         private System.Windows.Forms.Label lblPaymentTitle;
         private System.Windows.Forms.ListBox lbPaymentOptions;
         private System.Windows.Forms.Button btnPaymentOptions;
+        private System.Windows.Forms.Label lblCvvTitle;
+        private System.Windows.Forms.Label lblCvvText;
+        private System.Windows.Forms.TextBox tbCvvNumber;
+        private System.Windows.Forms.Button btnCvvScreen;
     }
 }
