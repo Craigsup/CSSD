@@ -56,6 +56,19 @@ namespace TicketingSystem {
             tbTopUp.Visible = true;
         }
 
+        private void ShowPaymentOptions()
+        {
+            lblTopUp.Visible = false;
+            btnOpenMenu.Visible = false;
+            btnTopUp.Visible = false;
+            tbTopUp.Visible = false;
+
+            lblPaymentTitle.Visible = true;
+
+        }
+
+
+
         /*
         * Custom Toggle Functions to simplify screens
         */
@@ -223,9 +236,13 @@ namespace TicketingSystem {
 
         private void btnTopUp_Click(object sender, System.EventArgs e)
         {
+            ShowPaymentOptions();
+            /*
             new CustomerAccount().TopUpBalance(_account, float.Parse(tbTopUp.Text));
             tbTopUp.Text = "";
             lblPayment.Visible = true;
+            */
+
         }
     }
 }

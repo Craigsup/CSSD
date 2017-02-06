@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace TicketingSystem {
@@ -10,6 +11,8 @@ namespace TicketingSystem {
         protected int _cardId;
         [DataMember]
         protected float _balance;
+        [DataMember]
+        protected List<PaymentCard> _savedPaymentMethods;
 
         public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
@@ -81,8 +84,17 @@ namespace TicketingSystem {
             return false;
         }
 
-	public void TopUpBalance(int accountId, float topUp){
+	    public void TopUpBalance(int accountId, float topUp){
             new AccountList().UpdateData(accountId, topUp);
         }
+
+        public List<string> GetSavedPaymentDigits() {
+            return _savedPaymentMethods.Select(x => x.GetLastFourDigits()).ToList();
+        }
+
+        
+
+
+
     }
 }

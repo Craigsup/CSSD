@@ -79,6 +79,7 @@
       <DependentUpon>MobileAppGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Payment.cs" />
+    <Compile Include="PaymentCard.cs" />
     <Compile Include="PaymentList.cs" />
     <Compile Include="PurchasedTicketList.cs" />
     <Compile Include="Route.cs" />
@@ -98,6 +99,9 @@
       <DependentUpon>TokenMachineGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="TokenValidator.cs" />
+    <EmbeddedResource Include="MobileAppGUI.resx">
+      <DependentUpon>MobileAppGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

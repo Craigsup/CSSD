@@ -44,6 +44,8 @@
             this.lblPayment = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
+            this.lblPaymentTitle = new System.Windows.Forms.Label();
+            this.lbPaymentOptions = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -303,12 +305,36 @@
             this.lblUser.TabIndex = 22;
             this.lblUser.Visible = false;
             // 
+            // lblPaymentTitle
+            // 
+            this.lblPaymentTitle.AutoSize = true;
+            this.lblPaymentTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblPaymentTitle.ForeColor = System.Drawing.Color.White;
+            this.lblPaymentTitle.Location = new System.Drawing.Point(54, 37);
+            this.lblPaymentTitle.Name = "lblPaymentTitle";
+            this.lblPaymentTitle.Size = new System.Drawing.Size(209, 24);
+            this.lblPaymentTitle.TabIndex = 23;
+            this.lblPaymentTitle.Text = "Select Payment Method";
+            this.lblPaymentTitle.Visible = false;
+            // 
+            // lbPaymentOptions
+            // 
+            this.lbPaymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbPaymentOptions.FormattingEnabled = true;
+            this.lbPaymentOptions.ItemHeight = 20;
+            this.lbPaymentOptions.Location = new System.Drawing.Point(55, 81);
+            this.lbPaymentOptions.Name = "lbPaymentOptions";
+            this.lbPaymentOptions.Size = new System.Drawing.Size(208, 84);
+            this.lbPaymentOptions.TabIndex = 24;
+            // 
             // MobileAppGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
+            this.Controls.Add(this.lbPaymentOptions);
+            this.Controls.Add(this.lblPaymentTitle);
             this.Controls.Add(this.btnTopUp);
             this.Controls.Add(this.lblNavTopUp);
             this.Controls.Add(this.lblNavBalance);
@@ -360,5 +386,7 @@
         private System.Windows.Forms.Label lblPayment;
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblPaymentTitle;
+        private System.Windows.Forms.ListBox lbPaymentOptions;
     }
 }
