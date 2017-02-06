@@ -42,6 +42,10 @@ namespace TicketingSystem {
             return _username;
         }
 
+        public int GetAccountId() {
+            return _accountId;
+        }
+
         public int VerifyLogin(string username, string password) {
             var x = username == _username && password == _password;
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
