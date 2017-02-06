@@ -1,12 +1,9 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace TicketingSystem {
     public partial class TokenMachineGUI : Form {
@@ -18,12 +15,6 @@ namespace TicketingSystem {
         private Stack<string> _actionStack = new Stack<string>();
         private List<int> nudAcceptedValues = new List<int>() { 1, 3, 5, 7, 10, 28 };
 
-
-        private AccountList _accList;
-
-        /// <summary>
-        /// 
-        /// </summary>
         public TokenMachineGUI() {
             InitializeComponent();
 
@@ -53,10 +44,8 @@ namespace TicketingSystem {
             accList.AddCustomerAccount(acc4);
             accList.AddCustomerAccount(acc5);
 
-            //System.IO.File.WriteAllText(@"Accounts.txt", Newtonsoft.Json.JsonConvert.SerializeObject(accList));
             accList.SaveData();
             //accList.LoadData();
-            _accList = accList;
         }
 
         private void DisplayLangList() {

@@ -65,12 +65,12 @@ namespace TicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// This method takes the List of CustomerAccount object and binary serializes it, allowing the persistence of data.
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <param name="objectToWrite"></param>
-        /// <param name="append"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath">This is the file name/output directory.</param>
+        /// <param name="objectToWrite">This is the object that gets serialized. Can be of any type.</param>
+        /// <param name="append">This flags whether to append the object to the end of the file (if it exists already)</param>
+        /// <typeparam name="T">This is the type of T</typeparam>
         public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
             using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
@@ -79,10 +79,10 @@ namespace TicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// This method reads in the object that has been serialized and returns it to the calling statement.
         /// </summary>
-        /// <param name="filePath"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath">A string containing the file path of which file to load.</param>
+        /// <typeparam name="T">The return type which the object should be cast to, in order to be returned.</typeparam>
         /// <returns></returns>
         public static T ReadFromBinaryFile<T>(string filePath) {
             using (Stream stream = File.Open(filePath, FileMode.Open)) {
@@ -92,10 +92,10 @@ namespace TicketingSystem {
         }
 
 	/// <summary>
-	/// 
+	/// This method gets the valid user account and calls the update balance method to add the amount they wish to top up to their account balance.
 	/// </summary>
-	/// <param name="accountId"></param>
-	/// <param name="topup"></param>
+	/// <param name="accountId">The account ID of which account to top up.</param>
+	/// <param name="topup">How much the user wishes to top up.</param>
 	public void UpdateData(int accountId, float topup)
         {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");

@@ -19,6 +19,13 @@ namespace TicketingSystem
         [DataMember]
         private string _cardHolderName;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cardnumber"></param>
+        /// <param name="expiryDate"></param>
+        /// <param name="startDate"></param>
+        /// <param name="cardHolderName"></param>
         public PaymentCard (int cardnumber, DateTime expiryDate, DateTime? startDate, string cardHolderName) {
             _cardNumber = cardnumber;
             _expiryDate = expiryDate;
@@ -26,6 +33,10 @@ namespace TicketingSystem
             _cardHolderName = cardHolderName;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string GetLastFourDigits() {
             return "**** **** **** "+_cardNumber.ToString().Substring(11);
         }
