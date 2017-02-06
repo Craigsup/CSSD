@@ -17,6 +17,7 @@ namespace TicketingSystem {
         public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
             _balance = balance;
+            _savedPaymentMethods = new List<PaymentCard>();
         }
 
         public CustomerAccount() {
@@ -42,6 +43,8 @@ namespace TicketingSystem {
                             return (T)Convert.ChangeType(account._fullName, typeof(T));
                         case "username":
                             return (T)Convert.ChangeType(account._username, typeof(T));
+                        case "paymentoptions":
+                            return (T) Convert.ChangeType(account.GetSavedPaymentDigits(), typeof(T));
                     }
                 }
             }

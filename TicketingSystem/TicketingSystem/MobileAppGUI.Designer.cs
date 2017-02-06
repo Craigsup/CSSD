@@ -46,6 +46,7 @@
             this.lblUser = new System.Windows.Forms.Label();
             this.lblPaymentTitle = new System.Windows.Forms.Label();
             this.lbPaymentOptions = new System.Windows.Forms.ListBox();
+            this.btnPaymentOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -326,6 +327,23 @@
             this.lbPaymentOptions.Name = "lbPaymentOptions";
             this.lbPaymentOptions.Size = new System.Drawing.Size(208, 84);
             this.lbPaymentOptions.TabIndex = 24;
+            this.lbPaymentOptions.Visible = false;
+            // 
+            // btnPaymentOptions
+            // 
+            this.btnPaymentOptions.BackColor = System.Drawing.Color.GreenYellow;
+            this.btnPaymentOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnPaymentOptions.FlatAppearance.BorderColor = System.Drawing.Color.GreenYellow;
+            this.btnPaymentOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPaymentOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.btnPaymentOptions.Location = new System.Drawing.Point(98, 295);
+            this.btnPaymentOptions.Name = "btnPaymentOptions";
+            this.btnPaymentOptions.Size = new System.Drawing.Size(120, 49);
+            this.btnPaymentOptions.TabIndex = 25;
+            this.btnPaymentOptions.Text = "Continue";
+            this.btnPaymentOptions.UseVisualStyleBackColor = false;
+            this.btnPaymentOptions.Visible = false;
+            this.btnPaymentOptions.Click += new System.EventHandler(this.btnPaymentOptions_Click);
             // 
             // MobileAppGUI
             // 
@@ -333,6 +351,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
+            this.Controls.Add(this.btnPaymentOptions);
             this.Controls.Add(this.lbPaymentOptions);
             this.Controls.Add(this.lblPaymentTitle);
             this.Controls.Add(this.btnTopUp);
@@ -388,5 +407,6 @@
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Label lblPaymentTitle;
         private System.Windows.Forms.ListBox lbPaymentOptions;
+        private System.Windows.Forms.Button btnPaymentOptions;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Linq;
@@ -64,7 +65,13 @@ namespace TicketingSystem {
             tbTopUp.Visible = false;
 
             lblPaymentTitle.Visible = true;
+            lbPaymentOptions.Visible = true;
+            btnPaymentOptions.Visible = true;
 
+            foreach (var option in new CustomerAccount().GetXByAccountId<List<string>>(_account, "paymentoptions")) {
+                lbPaymentOptions.Items.Add(option);
+                
+            }
         }
 
 
@@ -242,6 +249,10 @@ namespace TicketingSystem {
             tbTopUp.Text = "";
             lblPayment.Visible = true;
             */
+
+        }
+
+        private void btnPaymentOptions_Click(object sender, System.EventArgs e) {
 
         }
     }

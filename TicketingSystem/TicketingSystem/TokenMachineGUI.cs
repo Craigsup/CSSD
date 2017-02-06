@@ -21,6 +21,9 @@ namespace TicketingSystem {
 
         private AccountList _accList;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TokenMachineGUI() {
             InitializeComponent();
 
