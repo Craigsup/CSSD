@@ -15,7 +15,7 @@ namespace TicketingSystemTest {
             SmartCard bobSmartCard = new SmartCard(1);
             Scanner scannerA = new Scanner();
             scannerA.AddScannedCard(bobSmartCard);
-            scannerA.
+            //scannerA.
             
         }
     }
