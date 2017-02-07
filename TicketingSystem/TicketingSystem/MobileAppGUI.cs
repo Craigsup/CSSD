@@ -86,6 +86,14 @@ namespace TicketingSystem {
             lblCvvText.Visible = true;
             lblCvvTitle.Visible = true;
             tbCvvNumber.Visible = true;
+            btnCvvScreen.Visible = true;
+        }
+
+        private void ShowAddPaymentOptionScreen()
+        {
+            lblPaymentTitle.Visible = false;
+            lbPaymentOptions.Visible = false;
+            btnPaymentOptions.Visible = false;
 
 
         }
@@ -271,7 +279,7 @@ namespace TicketingSystem {
         private void btnPaymentOptions_Click(object sender, System.EventArgs e) {
             if(lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1)
             {
-                ShowCvvScreen();
+                ShowAddPaymentOptionScreen();
                 //add payment stuff
             }
             else

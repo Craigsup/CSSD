@@ -28,7 +28,7 @@ namespace TicketingSystem
         }
 
         public void AddScannedTicket(Ticket x) {
-            
+            _aTicket = x;
         }
 
         public bool ValidateCard(SmartCard x) {
@@ -44,7 +44,7 @@ namespace TicketingSystem
         }
 
         public void SetScannedTime() {
-            
+            _scanTime = DateTime.Now;
         }
 
         public void MakePayment() {
@@ -56,7 +56,7 @@ namespace TicketingSystem
         }
 
         public void SetActiveAccount(CustomerAccount x) {
-            
+            _account = x;
         }
 
         public float TotalDailyPayment() {

@@ -41,7 +41,7 @@ namespace TicketingSystem {
         }
 
         public float GetDayPassPrice() {
-            return 0;
+            return 0; 
         }
 
         public bool MakeCashPayment(float x, float y) {
