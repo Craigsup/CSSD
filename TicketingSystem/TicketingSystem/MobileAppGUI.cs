@@ -98,6 +98,18 @@ namespace TicketingSystem {
 
         }
 
+        private void ShowCvvConfirmedScreen()
+        {
+            lblCvvText.Visible = false;
+            lblCvvTitle.Visible = false;
+            tbCvvNumber.Visible = false;
+            btnCvvScreen.Visible = false;
+
+            lblCvvConfirmed.Visible = true;
+            btnCvvConfirmed.Visible = true;
+
+        }
+
 
 
         /*
@@ -290,8 +302,14 @@ namespace TicketingSystem {
 
         private void btnCvvScreen_Click(object sender, System.EventArgs e)
         {
-
+            ShowCvvConfirmedScreen();
             //do cvv check stuff
+        }
+
+        private void btnCvvConfirmed_Click(object sender, System.EventArgs e)
+        {
+            HideAll();
+            ShowHome();
         }
     }
 }

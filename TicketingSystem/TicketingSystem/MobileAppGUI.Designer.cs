@@ -51,6 +51,8 @@
             this.lblCvvText = new System.Windows.Forms.Label();
             this.tbCvvNumber = new System.Windows.Forms.TextBox();
             this.btnCvvScreen = new System.Windows.Forms.Button();
+            this.lblCvvConfirmed = new System.Windows.Forms.Label();
+            this.btnCvvConfirmed = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -398,12 +400,42 @@
             this.btnCvvScreen.Visible = false;
             this.btnCvvScreen.Click += new System.EventHandler(this.btnCvvScreen_Click);
             // 
+            // lblCvvConfirmed
+            // 
+            this.lblCvvConfirmed.AutoSize = true;
+            this.lblCvvConfirmed.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblCvvConfirmed.ForeColor = System.Drawing.Color.White;
+            this.lblCvvConfirmed.Location = new System.Drawing.Point(42, 60);
+            this.lblCvvConfirmed.Name = "lblCvvConfirmed";
+            this.lblCvvConfirmed.Size = new System.Drawing.Size(229, 24);
+            this.lblCvvConfirmed.TabIndex = 30;
+            this.lblCvvConfirmed.Text = "Balance added to account";
+            this.lblCvvConfirmed.Visible = false;
+            // 
+            // btnCvvConfirmed
+            // 
+            this.btnCvvConfirmed.BackColor = System.Drawing.Color.GreenYellow;
+            this.btnCvvConfirmed.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCvvConfirmed.FlatAppearance.BorderColor = System.Drawing.Color.GreenYellow;
+            this.btnCvvConfirmed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCvvConfirmed.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F);
+            this.btnCvvConfirmed.Location = new System.Drawing.Point(98, 295);
+            this.btnCvvConfirmed.Name = "btnCvvConfirmed";
+            this.btnCvvConfirmed.Size = new System.Drawing.Size(120, 49);
+            this.btnCvvConfirmed.TabIndex = 31;
+            this.btnCvvConfirmed.Text = "Continue";
+            this.btnCvvConfirmed.UseVisualStyleBackColor = false;
+            this.btnCvvConfirmed.Visible = false;
+            this.btnCvvConfirmed.Click += new System.EventHandler(this.btnCvvConfirmed_Click);
+            // 
             // MobileAppGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
+            this.Controls.Add(this.btnCvvConfirmed);
+            this.Controls.Add(this.lblCvvConfirmed);
             this.Controls.Add(this.btnCvvScreen);
             this.Controls.Add(this.tbCvvNumber);
             this.Controls.Add(this.lblCvvText);
@@ -469,5 +501,7 @@
         private System.Windows.Forms.Label lblCvvText;
         private System.Windows.Forms.TextBox tbCvvNumber;
         private System.Windows.Forms.Button btnCvvScreen;
+        private System.Windows.Forms.Label lblCvvConfirmed;
+        private System.Windows.Forms.Button btnCvvConfirmed;
     }
 }
