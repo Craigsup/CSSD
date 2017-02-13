@@ -1,15 +1,15 @@
 ﻿namespace TicketingSystem {
     public class MobileApp {
-        private CustomerAccount _anAccount;
+        private int _anAccount;
         private Payment _payment;
 
-        public MobileApp(Payment payment, CustomerAccount anAccount) {
-            _payment = payment;
+        public MobileApp(int anAccount) {
             _anAccount = anAccount;
         }
 
         public bool MakePayment(float x) {
-            return false;
+            new CustomerAccount().TopUpBalance(_anAccount, x);
+            return true;
         }
     }
 }

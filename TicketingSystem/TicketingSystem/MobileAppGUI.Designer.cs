@@ -284,9 +284,10 @@
             this.lblPayment.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblPayment.Location = new System.Drawing.Point(41, 151);
             this.lblPayment.Name = "lblPayment";
-            this.lblPayment.Size = new System.Drawing.Size(234, 29);
+            this.lblPayment.Size = new System.Drawing.Size(180, 29);
             this.lblPayment.TabIndex = 20;
-            this.lblPayment.Text = "Payment Successful!";
+            this.lblPayment.Text = "Payment Failed";
+            this.lblPayment.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblPayment.Visible = false;
             // 
             // lblWelcome
@@ -362,6 +363,7 @@
             this.lblCvvTitle.Size = new System.Drawing.Size(180, 24);
             this.lblCvvTitle.TabIndex = 26;
             this.lblCvvTitle.Text = "Confirm Your Details";
+            this.lblCvvTitle.Visible = false;
             // 
             // lblCvvText
             // 

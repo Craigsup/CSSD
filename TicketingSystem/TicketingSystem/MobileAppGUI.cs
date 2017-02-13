@@ -68,6 +68,7 @@ namespace TicketingSystem {
             lbPaymentOptions.Visible = true;
             btnPaymentOptions.Visible = true;
 
+            lbPaymentOptions.Items.Clear();
             foreach (var option in new CustomerAccount().GetXByAccountId<List<string>>(_account, "paymentoptions")) {
                 lbPaymentOptions.Items.Add(option);
             }
@@ -87,6 +88,7 @@ namespace TicketingSystem {
             lblCvvTitle.Visible = true;
             tbCvvNumber.Visible = true;
             btnCvvScreen.Visible = true;
+            tbCvvNumber.Text = "";
         }
 
         private void ShowAddPaymentOptionScreen()
@@ -185,6 +187,7 @@ namespace TicketingSystem {
             lblUser.Text = username;
             if (_account > -1)
             {
+                _app = new MobileApp(_account);
                 // Hide login screen
                 ToggleLoginScreen();
 
@@ -280,23 +283,19 @@ namespace TicketingSystem {
         private void btnTopUp_Click(object sender, System.EventArgs e)
         {
             ShowPaymentOptions();
-            /*
-            new CustomerAccount().TopUpBalance(_account, float.Parse(tbTopUp.Text));
-            tbTopUp.Text = "";
-            lblPayment.Visible = true;
-            */
-
         }
 
         private void btnPaymentOptions_Click(object sender, System.EventArgs e) {
             if(lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1)
             {
-                ShowAddPaymentOptionScreen();
+                ShowCvvScreen();
+                //ShowAddPaymentOptionScreen();
                 //add payment stuff
             }
             else
             {
                 ShowCvvScreen();
+
             }
         }
 
@@ -304,6 +303,19 @@ namespace TicketingSystem {
         {
             ShowCvvConfirmedScreen();
             //do cvv check stuff
+            if (_app.MakePayment(float.Parse(tbTopUp.Text)))
+            {
+                tbTopUp.Text = "";
+                lblPayment.Text = "Payment Successful";
+                lblPayment.Location = new Point((Width - lblPayment.Width) / 2, lblPayment.Location.Y);
+                lblPayment.Visible = true;
+            }
+            else
+            {
+                lblPayment.Text = "Payment Failed";
+                lblPayment.Location = new Point((Width - lblPayment.Width) / 2, lblPayment.Location.Y);
+                lblPayment.Visible = true;
+            }
         }
 
         private void btnCvvConfirmed_Click(object sender, System.EventArgs e)
