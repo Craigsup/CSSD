@@ -50,6 +50,10 @@
             this.cbStartStation = new System.Windows.Forms.ComboBox();
             this.tbSingleJourneyPrice = new System.Windows.Forms.TextBox();
             this.lblSingleJourneyPrice = new System.Windows.Forms.Label();
+            this.lblTimedPassPrice = new System.Windows.Forms.Label();
+            this.tbTotalPrice = new System.Windows.Forms.TextBox();
+            this.lblCashTitle = new System.Windows.Forms.Label();
+            this.lblTotalRemaining = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimedPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTicketQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
@@ -166,7 +170,7 @@
             // nudTicketQuantity
             // 
             this.nudTicketQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudTicketQuantity.Location = new System.Drawing.Point(294, 207);
+            this.nudTicketQuantity.Location = new System.Drawing.Point(243, 208);
             this.nudTicketQuantity.Maximum = new decimal(new int[] {
             10,
             0,
@@ -187,12 +191,13 @@
             0});
             this.nudTicketQuantity.Visible = false;
             this.nudTicketQuantity.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nudTicketQuantity_KeyDown);
+            this.nudTicketQuantity.KeyUp += new System.Windows.Forms.KeyEventHandler(this.nudTicketQuantity_KeyUp);
             // 
             // lblNudQuantity
             // 
             this.lblNudQuantity.AutoSize = true;
             this.lblNudQuantity.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.lblNudQuantity.Location = new System.Drawing.Point(290, 180);
+            this.lblNudQuantity.Location = new System.Drawing.Point(239, 181);
             this.lblNudQuantity.Name = "lblNudQuantity";
             this.lblNudQuantity.Size = new System.Drawing.Size(88, 24);
             this.lblNudQuantity.TabIndex = 9;
@@ -275,7 +280,7 @@
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblPassword.Location = new System.Drawing.Point(117, 188);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(101, 24);
+            this.lblPassword.Size = new System.Drawing.Size(92, 24);
             this.lblPassword.TabIndex = 22;
             this.lblPassword.Text = "Password";
             this.lblPassword.Visible = false;
@@ -307,7 +312,7 @@
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.lblUsername.Location = new System.Drawing.Point(117, 129);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(105, 24);
+            this.lblUsername.Size = new System.Drawing.Size(97, 24);
             this.lblUsername.TabIndex = 19;
             this.lblUsername.Text = "Username";
             this.lblUsername.Visible = false;
@@ -380,11 +385,56 @@
             this.lblSingleJourneyPrice.Text = "Ticket Price";
             this.lblSingleJourneyPrice.Visible = false;
             // 
+            // lblTimedPassPrice
+            // 
+            this.lblTimedPassPrice.AutoSize = true;
+            this.lblTimedPassPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblTimedPassPrice.Location = new System.Drawing.Point(346, 181);
+            this.lblTimedPassPrice.Name = "lblTimedPassPrice";
+            this.lblTimedPassPrice.Size = new System.Drawing.Size(93, 24);
+            this.lblTimedPassPrice.TabIndex = 29;
+            this.lblTimedPassPrice.Text = "Total Cost";
+            this.lblTimedPassPrice.Visible = false;
+            // 
+            // tbTotalPrice
+            // 
+            this.tbTotalPrice.Enabled = false;
+            this.tbTotalPrice.Location = new System.Drawing.Point(349, 211);
+            this.tbTotalPrice.Name = "tbTotalPrice";
+            this.tbTotalPrice.ReadOnly = true;
+            this.tbTotalPrice.Size = new System.Drawing.Size(100, 20);
+            this.tbTotalPrice.TabIndex = 28;
+            this.tbTotalPrice.Visible = false;
+            // 
+            // lblCashTitle
+            // 
+            this.lblCashTitle.AutoSize = true;
+            this.lblCashTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblCashTitle.Location = new System.Drawing.Point(192, 68);
+            this.lblCashTitle.Name = "lblCashTitle";
+            this.lblCashTitle.Size = new System.Drawing.Size(100, 24);
+            this.lblCashTitle.TabIndex = 30;
+            this.lblCashTitle.Text = "Enter cash";
+            this.lblCashTitle.Visible = false;
+            // 
+            // lblTotalRemaining
+            // 
+            this.lblTotalRemaining.AutoSize = true;
+            this.lblTotalRemaining.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblTotalRemaining.Location = new System.Drawing.Point(216, 156);
+            this.lblTotalRemaining.Name = "lblTotalRemaining";
+            this.lblTotalRemaining.Size = new System.Drawing.Size(0, 24);
+            this.lblTotalRemaining.TabIndex = 31;
+            // 
             // TokenMachineGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(510, 404);
+            this.Controls.Add(this.lblTotalRemaining);
+            this.Controls.Add(this.lblCashTitle);
+            this.Controls.Add(this.lblTimedPassPrice);
+            this.Controls.Add(this.tbTotalPrice);
             this.Controls.Add(this.lblSingleJourneyPrice);
             this.Controls.Add(this.tbSingleJourneyPrice);
             this.Controls.Add(this.lblStartStation);
@@ -402,15 +452,15 @@
             this.Controls.Add(this.lblAccountTitle);
             this.Controls.Add(this.lblLanguageTitle);
             this.Controls.Add(this.lblPaymentMethods);
-            this.Controls.Add(this.lbJourneyType);
-            this.Controls.Add(this.lbAccountTypes);
             this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.lblEndStation);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.cbEndStation);
-            this.Controls.Add(this.lbLanguages);
             this.Controls.Add(this.lbPaymentMethods);
             this.Controls.Add(this.cbStartStation);
+            this.Controls.Add(this.lbJourneyType);
+            this.Controls.Add(this.lbAccountTypes);
+            this.Controls.Add(this.lbLanguages);
             this.DoubleBuffered = true;
             this.Name = "TokenMachineGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -452,5 +502,9 @@
         private System.Windows.Forms.ComboBox cbStartStation;
         private System.Windows.Forms.TextBox tbSingleJourneyPrice;
         private System.Windows.Forms.Label lblSingleJourneyPrice;
+        private System.Windows.Forms.Label lblTimedPassPrice;
+        private System.Windows.Forms.TextBox tbTotalPrice;
+        private System.Windows.Forms.Label lblCashTitle;
+        private System.Windows.Forms.Label lblTotalRemaining;
     }
 }

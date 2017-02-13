@@ -8,16 +8,10 @@ namespace TicketingSystem {
         private SmartCard _card;
         private DateTime _dateTimePrint;
         private Payment _payment;
-        private float _dayPassPrice;
+        private decimal _dayPassPrice;
 
-        public TokenMachine(float dayPassPrice, Payment payment, DateTime dateTimePrint, SmartCard card, Ticket ticket, CardReader reader, CustomerAccount anAccount) {
+        public TokenMachine(decimal dayPassPrice) {
             _dayPassPrice = dayPassPrice;
-            _payment = payment;
-            _dateTimePrint = dateTimePrint;
-            _card = card;
-            _ticket = ticket;
-            _reader = reader;
-            _anAccount = anAccount;
         }
 
         public void PrintTicket() {
@@ -36,15 +30,24 @@ namespace TicketingSystem {
             return null;
         }
 
-        public float NumberOfDaysPrice(int days) {
-            return 0;
+        public decimal NumberOfDaysPrice(int days) {
+            return GetDayPassPrice() * days;
         }
 
-        public float GetDayPassPrice() {
-            return 0; 
+        public decimal GetDayPassPrice() {
+            return _dayPassPrice;
         }
 
-        public bool MakeCashPayment(float x, float y) {
+        public bool MakeCashPayment(decimal due, decimal given) {
+            if (_payment == null) {
+                _payment = new Payment(due);
+            }
+            else {
+                _payment.CashPayment(given);
+                _payment = new Payment(_payment.GetBalance());
+            }
+
+            
             return true;
         }
 

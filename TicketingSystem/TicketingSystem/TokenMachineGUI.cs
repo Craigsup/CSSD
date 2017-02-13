@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Linq;
@@ -13,12 +14,16 @@ namespace TicketingSystem {
         private string[] stations = new string[2533];
         private int _account;
         private Stack<string> _actionStack = new Stack<string>();
-        private List<int> nudAcceptedValues = new List<int>() { 1, 3, 5, 7, 10, 28 };
+        private List<int> nudAcceptedValues = new List<int>() {1, 3, 5, 7, 10, 28};
+        private Random rand = new Random();
+
 
         public TokenMachineGUI() {
             InitializeComponent();
 
             SetupFile();
+
+            _machine = new TokenMachine(decimal.Round((decimal)rand.NextDouble(), 2)*10);
 
             stations = System.IO.File.ReadAllLines(@"UK_TrainStations.txt");
             cbStartStation.DataSource = stations;
@@ -30,7 +35,6 @@ namespace TicketingSystem {
         }
 
         private void SetupFile() {
-            var rand = new Random();
             var acc1 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 1, "Bob", "password", "Bob Hitler", false);
             var acc2 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 2, "Rudy", "password", "Rudy Smeg", false);
             var acc3 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 3, "Judy", "password", "Judy Spagghettio", false);
@@ -264,6 +268,8 @@ namespace TicketingSystem {
             nudTicketQuantity.Visible = !nudTicketQuantity.Visible;
             pbBack.Visible = !pbBack.Visible;
             pbHome.Visible = !pbHome.Visible;
+            lblTimedPassPrice.Visible = !lblTimedPassPrice.Visible;
+            tbTotalPrice.Visible = !tbTotalPrice.Visible;
 
             if (show) {
                 nudTimedPass.Focus();
@@ -437,13 +443,67 @@ namespace TicketingSystem {
 
         private void lbPaymentMethods_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyData == Keys.Enter) {
-                if (lbPaymentMethods.SelectedIndex == 0) {
+                if (string.Compare(lbPaymentMethods.SelectedItem.ToString(), _lang.GetPaymentOptions()[1], StringComparison.Ordinal)==0) { 
+                    // CARD PAYMENT
                     DisplayFinalMessage();
-                } else if (lbPaymentMethods.SelectedIndex == 1) {
-                    DisplayFinalMessage();
-                } else {
+                } else if (string.Compare(lbPaymentMethods.SelectedItem.ToString(), _lang.GetPaymentOptions()[2], StringComparison.Ordinal) == 0) { 
+                    // CASH
+                    TogglePaymentScreen(false);
+                    ToggleCashScreen(true);         
+                } else { 
+                    // ERROR
                     throw new NotImplementedException();
                 }
+            }
+        }
+
+        private void ToggleCashScreen(bool show) {
+            if (_actionStack.Count > 0 && _actionStack.Peek() != "CashScreen") {
+                _actionStack.Push("CashScreen");
+            }
+
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
+
+            var moneyOptions = new List<string> {
+                "0.01",
+                "0.02",
+                "0.05",
+                "0.10",
+                "0.20",
+                "0.50",
+                "1.00",
+                "2.00",
+                "5.00",
+                "10.00",
+                "20.00",
+                "50.00"
+            };
+
+            if (show) {
+                Panel moneyPanel = new Panel();
+                Form moneyForm = new Form();
+                moneyForm.Width = (moneyOptions.Count+1) * (new Button().Width + 4);
+                Point tempPoint = new Point(10, 10);
+                foreach (var moneyOption in moneyOptions) {
+                    var button = new Button();
+                    button.Text = "£" + moneyOption;
+                    button.Location = new Point(tempPoint.X, tempPoint.Y);
+                    tempPoint.X += button.Width+3;
+                    button.Click += button_Click;
+
+                    moneyForm.Controls.Add(button);
+                }
+
+                moneyForm.Show();
+            }
+        }
+
+        protected void button_Click(object sender, EventArgs e) {
+            Button button = sender as Button;
+            bool result = _machine.MakeCashPayment(decimal.Parse(tbTotalPrice.Text), decimal.Parse(button.Text.Substring(1)));
+            if (result) {
+                MessageBox.Show("SUCCESS");
             }
         }
 
@@ -633,6 +693,8 @@ namespace TicketingSystem {
                         nudAcceptedValues[currentIndex < 0 ? nudAcceptedValues.Count - 1 : currentIndex];
                 }
             }
+
+            //UpdateTimedPassPrice();
         }
 
         private void nudTimedPass_KeyUp(object sender, KeyEventArgs e) {
@@ -644,6 +706,8 @@ namespace TicketingSystem {
                         nudAcceptedValues[currentIndex >= nudAcceptedValues.Count ? 0 : currentIndex];
                 }
             }
+
+            UpdateTimedPassPrice();
         }
 
         private void nudTimedPass_MouseDown(object sender, MouseEventArgs e) {
@@ -655,7 +719,19 @@ namespace TicketingSystem {
                         nudAcceptedValues[currentIndex >= nudAcceptedValues.Count ? 0 : currentIndex];
                 }
             }
-           
+
+            UpdateTimedPassPrice();
         }
+
+        private void UpdateTimedPassPrice() {
+            tbTotalPrice.Text = "";
+            var singleCost = _machine.NumberOfDaysPrice(int.Parse(nudTimedPass.Value.ToString(CultureInfo.InvariantCulture)));
+            tbTotalPrice.Text = (singleCost * int.Parse(nudTicketQuantity.Value.ToString(CultureInfo.InvariantCulture))).ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void nudTicketQuantity_KeyUp(object sender, KeyEventArgs e) {
+            UpdateTimedPassPrice();
+        }
+        
     }
 }

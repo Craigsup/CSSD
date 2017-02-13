@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TicketingSystem {
+﻿namespace TicketingSystem {
     public class Payment {
-        private CustomerAccount AnAccount;
-        private float AmountPayed;
+        private CustomerAccount _account;
+        private decimal _amountPayed;
+        private decimal _amountOwed;
+
+        public Payment(decimal amountOwed) {
+            _amountOwed = amountOwed;
+        }
 
         public float AddBalance(float x, float y) {
             return 0;
@@ -16,8 +16,9 @@ namespace TicketingSystem {
             return 0;
         }
 
-        public void CashPayment(float x) {
-
+        public void CashPayment(decimal x) {
+            _amountOwed -= x;
+            _amountPayed += x;
         }
 
         public void SetAmountPayed(float x) {
@@ -30,6 +31,10 @@ namespace TicketingSystem {
 
         public float GetAmountPaid() {
             return 0;
+        }
+
+        public decimal GetBalance() {
+            return _amountOwed;
         }
     }
 }
