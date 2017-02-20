@@ -7,7 +7,14 @@ namespace TicketingSystem {
     public class Route {
         private Station RouteStartPoint;
         private Station RouteEndPoint;
-        private float Price;
+        private decimal Price;
+
+        public Route(Station x, Station y, decimal p) {
+            RouteStartPoint = x;
+            RouteEndPoint = y;
+            Price = p;
+
+        }
 
         public Station GetStartPoint() {
             return RouteStartPoint;
@@ -17,7 +24,7 @@ namespace TicketingSystem {
             return RouteEndPoint;
         }
 
-        public float GetPrice() {
+        public decimal GetPrice() {
             return Price;
         }
 
@@ -29,7 +36,7 @@ namespace TicketingSystem {
             RouteEndPoint = station;
         }
 
-        public void SetPrice(float price) {
+        public void SetPrice(decimal price) {
             Price = price;
         }
     }

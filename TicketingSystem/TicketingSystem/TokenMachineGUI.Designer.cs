@@ -54,6 +54,8 @@
             this.tbTotalPrice = new System.Windows.Forms.TextBox();
             this.lblCashTitle = new System.Windows.Forms.Label();
             this.lblTotalRemaining = new System.Windows.Forms.Label();
+            this.lblAmountDueTitle = new System.Windows.Forms.Label();
+            this.lblAmountDue = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimedPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTicketQuantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbBack)).BeginInit();
@@ -426,11 +428,35 @@
             this.lblTotalRemaining.Size = new System.Drawing.Size(0, 24);
             this.lblTotalRemaining.TabIndex = 31;
             // 
+            // lblAmountDueTitle
+            // 
+            this.lblAmountDueTitle.AutoSize = true;
+            this.lblAmountDueTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAmountDueTitle.Location = new System.Drawing.Point(117, 117);
+            this.lblAmountDueTitle.Name = "lblAmountDueTitle";
+            this.lblAmountDueTitle.Size = new System.Drawing.Size(121, 24);
+            this.lblAmountDueTitle.TabIndex = 32;
+            this.lblAmountDueTitle.Text = "Amount Due:";
+            this.lblAmountDueTitle.Visible = false;
+            // 
+            // lblAmountDue
+            // 
+            this.lblAmountDue.AutoSize = true;
+            this.lblAmountDue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAmountDue.Location = new System.Drawing.Point(246, 117);
+            this.lblAmountDue.Name = "lblAmountDue";
+            this.lblAmountDue.Size = new System.Drawing.Size(20, 24);
+            this.lblAmountDue.TabIndex = 33;
+            this.lblAmountDue.Text = "0";
+            this.lblAmountDue.Visible = false;
+            // 
             // TokenMachineGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(510, 404);
+            this.Controls.Add(this.lblAmountDue);
+            this.Controls.Add(this.lblAmountDueTitle);
             this.Controls.Add(this.lblTotalRemaining);
             this.Controls.Add(this.lblCashTitle);
             this.Controls.Add(this.lblTimedPassPrice);
@@ -506,5 +532,7 @@
         private System.Windows.Forms.TextBox tbTotalPrice;
         private System.Windows.Forms.Label lblCashTitle;
         private System.Windows.Forms.Label lblTotalRemaining;
+        private System.Windows.Forms.Label lblAmountDueTitle;
+        private System.Windows.Forms.Label lblAmountDue;
     }
 }

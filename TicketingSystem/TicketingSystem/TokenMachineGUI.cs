@@ -16,14 +16,14 @@ namespace TicketingSystem {
         private Stack<string> _actionStack = new Stack<string>();
         private List<int> nudAcceptedValues = new List<int>() {1, 3, 5, 7, 10, 28};
         private Random rand = new Random();
-
+        private decimal dayPassPrice;
 
         public TokenMachineGUI() {
             InitializeComponent();
 
             SetupFile();
-
-            _machine = new TokenMachine(decimal.Round((decimal)rand.NextDouble(), 2)*10);
+            dayPassPrice = decimal.Round((decimal)rand.NextDouble(), 2) * 10;
+            _machine = new TokenMachine(dayPassPrice);
 
             stations = System.IO.File.ReadAllLines(@"UK_TrainStations.txt");
             cbStartStation.DataSource = stations;
@@ -330,22 +330,40 @@ namespace TicketingSystem {
             }
         }
 
-        private async void FinalMessage() {
+        private async void FinalMessage(DialogResult result = DialogResult.OK) {
             if (_actionStack.Count > 0 && _actionStack.Peek() != "FinalMessage") {
                 _actionStack.Push("FinalMessage");
             }
+
             lblFinalMessage.Visible = true;
             lblFinalMessage.Text = "";
+
             await Task.Delay(1000);
+            if (result == DialogResult.Cancel) {
+                decimal amtPaid = _machine.GetPaidAmount();
+                if (amtPaid > 0) {
+                    lblFinalMessage.Text = "Refunding £" + amtPaid;
+                    await Task.Delay(3000);
+                    lblFinalMessage.Visible = false;
+                    ResetControls();
+                    ToggleLanguageScreen(true);
+                    return;
+                }
+                lblFinalMessage.Visible = false;
+                ResetControls();
+                ToggleLanguageScreen(true);
+                return;
+            }
+
             foreach (var message in _lang.GetFinalMessage()) {
                 lblFinalMessage.Text = message;
                 await Task.Delay(3000);
             }
+
             lblFinalMessage.Visible = false;
             ResetControls();
             ToggleLanguageScreen(true);
         }
-
 
 
         /*
@@ -464,47 +482,21 @@ namespace TicketingSystem {
 
             pbBack.Visible = !pbBack.Visible;
             pbHome.Visible = !pbHome.Visible;
+            lblAmountDue.Visible = !lblAmountDue.Visible;
+            lblAmountDueTitle.Visible = !lblAmountDueTitle.Visible;
+            lblAmountDue.Text = "£" + tbTotalPrice.Text;
 
-            var moneyOptions = new List<string> {
-                "0.01",
-                "0.02",
-                "0.05",
-                "0.10",
-                "0.20",
-                "0.50",
-                "1.00",
-                "2.00",
-                "5.00",
-                "10.00",
-                "20.00",
-                "50.00"
-            };
+            MoneyForm moneyForm = new MoneyForm(_machine, tbTotalPrice.Text, lblAmountDue);
+            var result = moneyForm.ShowDialog();
 
-            if (show) {
-                Panel moneyPanel = new Panel();
-                Form moneyForm = new Form();
-                moneyForm.Width = (moneyOptions.Count+1) * (new Button().Width + 4);
-                Point tempPoint = new Point(10, 10);
-                foreach (var moneyOption in moneyOptions) {
-                    var button = new Button();
-                    button.Text = "£" + moneyOption;
-                    button.Location = new Point(tempPoint.X, tempPoint.Y);
-                    tempPoint.X += button.Width+3;
-                    button.Click += button_Click;
+            pbBack.Visible = !pbBack.Visible;
+            pbHome.Visible = !pbHome.Visible;
+            lblAmountDue.Visible = !lblAmountDue.Visible;
+            lblAmountDueTitle.Visible = !lblAmountDueTitle.Visible;
+            FinalMessage(result);
 
-                    moneyForm.Controls.Add(button);
-                }
 
-                moneyForm.Show();
-            }
-        }
 
-        protected void button_Click(object sender, EventArgs e) {
-            Button button = sender as Button;
-            bool result = _machine.MakeCashPayment(decimal.Parse(tbTotalPrice.Text), decimal.Parse(button.Text.Substring(1)));
-            if (result) {
-                MessageBox.Show("SUCCESS");
-            }
         }
 
         private void cbEndStation_KeyDown(object sender, KeyEventArgs e) {
@@ -645,6 +637,8 @@ namespace TicketingSystem {
                     x.Dispose();
                 }
             }
+
+            _machine = new TokenMachine(dayPassPrice);
         }
 
         private void pbBack_Click(object sender, EventArgs e) {
