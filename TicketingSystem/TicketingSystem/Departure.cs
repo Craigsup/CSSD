@@ -5,27 +5,32 @@ using System.Text;
 
 namespace TicketingSystem {
     public class Departure {
-        private Station Station;
-        private DateTime DepartureTime;
+        private Station _station;
+        private DateTime _departureTime;
+
+        public Departure(Station station, DateTime departureTime) {
+            _station = station;
+            _departureTime = departureTime;
+        }
 
         public int GetDepartureID() {
             return 0;
         }
 
         public Station GetStation() {
-            return Station;
+            return _station;
         }
 
         public DateTime GetDepartureTime() {
-            return DepartureTime;
+            return _departureTime;
         }
 
         public bool IsPeakDeparture() {
-            return false;
+            return _departureTime.ToLocalTime().Hour > 8 && _departureTime.ToLocalTime().Hour < 19;
         }
 
         public void SetDepartureTime(DateTime time) {
-            DepartureTime = time;
+            _departureTime = time;
         }
     }
 }

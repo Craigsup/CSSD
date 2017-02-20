@@ -10,21 +10,31 @@ namespace TicketingSystem {
         [DataMember]
         protected int _cardId;
         [DataMember]
-        protected float _balance;
+        protected decimal _balance;
         [DataMember]
         protected List<PaymentCard> _savedPaymentMethods;
+        [DataMember]
+        protected JourneyList _JourneyList;
+        [DataMember]
+        protected Station _startStation;
+        [DataMember]
+        protected Station _endStation;
+        [DataMember]
+        protected PaymentList _paymentList;
 
-        public CustomerAccount(int cardId, float balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
+        public CustomerAccount(int cardId, decimal balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
             _balance = balance;
             _savedPaymentMethods = new List<PaymentCard>();
+            _JourneyList = new JourneyList();
+            _paymentList = new PaymentList();
         }
 
         public CustomerAccount() {
         }
 
         public int GetCardId() {
-            return 0;
+            return _cardId;
         }
 
         public T GetXByAccountId<T>(int accountId, string x)
@@ -51,7 +61,7 @@ namespace TicketingSystem {
             return default(T);
         }
 
-        public float GetBalance() {
+        public decimal GetBalance() {
             return _balance;
         }
 
@@ -59,35 +69,35 @@ namespace TicketingSystem {
 
         }
 
-        public void UpdateBalance(float x) {
+        public void UpdateBalance(decimal x) {
             _balance += x;
         }
 
         public void SetStartPoint(Station x) {
-
+            _startStation = x;
         }
 
         public void SetEndPoint(Station x) {
-
+            _endStation = x;
         }
 
         public Station GetStartPoint() {
-            return null;
+            return _startStation;
         }
 
         public Station GetEndPoint() {
-            return null;
+            return _endStation;
         }
 
         public void SetFreeTravel(bool x) {
-
+            
         }
 
         public bool GetFreeTravel() {
             return false;
         }
 
-	    public void TopUpBalance(int accountId, float topUp){
+	    public void TopUpBalance(int accountId, decimal topUp){
             new AccountList().UpdateData(accountId, topUp);
         }
 

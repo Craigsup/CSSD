@@ -46,8 +46,8 @@ namespace TicketingSystem {
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
-        public Account GetAccountByUsername(string x) {
-            return null;
+        public CustomerAccount GetAccountByUsername(string x) {
+            return _listOfAccounts.Where(y => y.GetUsername() == x).First();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace TicketingSystem {
 	/// </summary>
 	/// <param name="accountId">The account ID of which account to top up.</param>
 	/// <param name="topup">How much the user wishes to top up.</param>
-	public void UpdateData(int accountId, float topup)
+	public void UpdateData(int accountId, decimal topup)
         {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             foreach (var account in accs)

@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace TicketingSystem
 {
+    [Serializable]
     public class JourneyList {
-        private List<Journey> _listOfJourneys;
+        [DataMember]
+        protected List<Journey> _listOfJourneys;
+
+        public JourneyList() {
+            _listOfJourneys = new List<Journey>();
+        }
 
         public void AddJourney(Journey x) {
             _listOfJourneys.Add(x);

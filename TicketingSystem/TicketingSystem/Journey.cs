@@ -2,10 +2,11 @@
 
 namespace TicketingSystem
 {
+    [Serializable]
     public class Journey {
-        private readonly DateTime _routeCompletion;
-        private readonly Route _theRoute;
-        private readonly CustomerAccount _customer;
+        protected readonly DateTime _routeCompletion;
+        protected readonly Route _theRoute;
+        protected readonly CustomerAccount _customer;
 
         public Journey(CustomerAccount customer, Route theRoute, DateTime routeCompletion) {
             _customer = customer;
