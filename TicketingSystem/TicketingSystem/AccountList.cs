@@ -10,14 +10,14 @@ namespace TicketingSystem {
         private List<CustomerAccount> _listOfAccounts;
 
         /// <summary>
-        /// 
+        /// Constructor that creates a new list of customer accounts
         /// </summary>
         public AccountList() {
             _listOfAccounts = new List<CustomerAccount>();
         }
 
         /// <summary>
-        /// 
+        /// Constructor that sets the list of customer accounts to be equal to the list of customer accounts parameter
         /// </summary>
         /// <param name="accs"></param>
         public AccountList(List<CustomerAccount> accs) {
@@ -25,7 +25,7 @@ namespace TicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// A method that adds a customer account parameter to the list of accounts
         /// </summary>
         /// <param name="x"></param>
         public void AddCustomerAccount(CustomerAccount x) {
@@ -33,32 +33,32 @@ namespace TicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// A method that returns an account from the list of customer accounts with a CardId that matches the integer parameter
         /// </summary>
         /// <param name="x"></param>
-        /// <returns></returns>
+        /// <returns>an account</returns>
         public CustomerAccount GetAccountByCardId(int x) {
             return _listOfAccounts.Where(y => y.GetCardId() == x).FirstOrDefault();
         }
 
         /// <summary>
-        /// 
+        /// A method that returns an account from the list of customer accounts with a username that matches the string passed in
         /// </summary>
         /// <param name="x"></param>
-        /// <returns></returns>
+        /// <returns>an account</returns>
         public CustomerAccount GetAccountByUsername(string x) {
             return _listOfAccounts.Where(y => y.GetUsername() == x).First();
         }
 
         /// <summary>
-        /// 
+        /// A method that calls the private WriteToBinaryFile method with the required parameters
         /// </summary>
         public void SaveData() {
             WriteToBinaryFile(@"Accounts.txt", _listOfAccounts, false);
         }
 
         /// <summary>
-        /// 
+        /// A method that calls the private ReadFromBinaryFile method with the required parameters
         /// </summary>
         public void LoadData() {
             _listOfAccounts = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
@@ -83,7 +83,7 @@ namespace TicketingSystem {
         /// </summary>
         /// <param name="filePath">A string containing the file path of which file to load.</param>
         /// <typeparam name="T">The return type which the object should be cast to, in order to be returned.</typeparam>
-        /// <returns></returns>
+        /// <returns>(T)binaryFormatter.Deserialize(stream)</returns>
         public static T ReadFromBinaryFile<T>(string filePath) {
             using (Stream stream = File.Open(filePath, FileMode.Open)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();

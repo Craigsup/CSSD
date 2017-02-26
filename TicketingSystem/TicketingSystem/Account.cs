@@ -19,7 +19,7 @@ namespace TicketingSystem {
         protected string _username;
 
         /// <summary>
-        /// 
+        /// A constructor for the Account class that takes parameters
         /// </summary>
         /// <param name="accountId"></param>
         /// <param name="username"></param>
@@ -35,7 +35,7 @@ namespace TicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// a constructor for the Account class
         /// </summary>
         public Account() {
 
@@ -97,7 +97,7 @@ namespace TicketingSystem {
         /// </summary>
         /// <param name="filePath"></param>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <returns>(T)binaryFormatter.Deserialize(stream)</returns>
         public static T ReadFromBinaryFile<T>(string filePath) {
             using (Stream stream = File.Open(filePath, FileMode.Open)) {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
