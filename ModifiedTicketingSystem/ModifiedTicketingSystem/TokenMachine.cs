@@ -82,10 +82,16 @@ namespace ModifiedTicketingSystem {
             return size >= 0 ?_paymentList.GetPaymentByIndex(size).GetBalance() : 0;
         }
 
-        public void MakeCardPayment(float x) {
-            
+        public void MakeCardPayment(decimal due, decimal given) {
+            _paymentList.AddPayment(new Payment(due, given));
+            new CustomerAccount(_anAccount).AddTransaction(_paymentList);
         }
 
+        internal void MakeBalancePayment(decimal due, decimal given) {
+            _paymentList.AddPayment(new Payment(due, given));
+            new CustomerAccount(_anAccount).AddTransaction(_paymentList);
+            new CustomerAccount(_anAccount).UpdateBalance(-given);
+        }
 
         public void SetAccount(int id) {
             _anAccount = id;
@@ -94,7 +100,7 @@ namespace ModifiedTicketingSystem {
 
         public void Reset() {
             _paymentList = null;
-
         }
+
     }
 }

@@ -298,7 +298,7 @@ namespace ModifiedTicketingSystem {
                 lbPaymentMethods.Focus();
                 if (lbPaymentMethods.Items.Count < 1) {
                     lblPaymentMethods.Text = _lang.GetPaymentOptions()[0];
-                    if (_account > -1) {
+                    if (_account > 0) {
                         foreach (
                             var option in _lang.GetPaymentOptions().GetRange(1, _lang.GetPaymentOptions().Count - 1)) {
                             lbPaymentMethods.Items.Add(option);
@@ -469,16 +469,26 @@ namespace ModifiedTicketingSystem {
             if (e.KeyData == Keys.Enter) {
                 if (string.Compare(lbPaymentMethods.SelectedItem.ToString(), _lang.GetPaymentOptions()[1], StringComparison.Ordinal)==0) { 
                     // CARD PAYMENT
+                    ToggleCardPayment();
                     DisplayFinalMessage();
                 } else if (string.Compare(lbPaymentMethods.SelectedItem.ToString(), _lang.GetPaymentOptions()[2], StringComparison.Ordinal) == 0) { 
                     // CASH
                     TogglePaymentScreen(false);
                     ToggleCashScreen(true);         
-                } else { 
-                    // ERROR
-                    //throw new NotImplementedException();
+                } else if (string.Compare(lbPaymentMethods.SelectedItem.ToString(), _lang.GetPaymentOptions()[3], StringComparison.Ordinal) == 0) {
+                    // ACCOUNT BALANCE
+                    ToggleBalancePayment();
+                    DisplayFinalMessage();
                 }
             }
+        }
+
+        private void ToggleBalancePayment() {
+            _machine.MakeBalancePayment(selection == 0 ? decimal.Parse(tbSingleJourneyPrice.Text.Substring(1)) : decimal.Parse(tbTotalPrice.Text), selection == 0 ? decimal.Parse(tbSingleJourneyPrice.Text.Substring(1)) : decimal.Parse(tbTotalPrice.Text));
+        }
+
+        private void ToggleCardPayment() {
+            _machine.MakeCardPayment(selection == 0 ? decimal.Parse(tbSingleJourneyPrice.Text.Substring(1)) : decimal.Parse(tbTotalPrice.Text), selection == 0 ? decimal.Parse(tbSingleJourneyPrice.Text.Substring(1)) : decimal.Parse(tbTotalPrice.Text));
         }
 
         private async void ToggleCashScreen(bool show) {
