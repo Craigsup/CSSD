@@ -167,6 +167,7 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.btn1p);
             this.Name = "MoneyForm";
             this.Text = "Cash";
+            this.Load += new System.EventHandler(this.MoneyForm_Load);
             this.ResumeLayout(false);
 
         }

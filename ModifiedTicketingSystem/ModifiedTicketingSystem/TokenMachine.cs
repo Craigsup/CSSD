@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ModifiedTicketingSystem {
     public class TokenMachine {
-        private CustomerAccount _anAccount;
+        private int _anAccount;
         private CardReader _reader;
         private Ticket _ticket;
         private SmartCard _card;
@@ -17,7 +17,7 @@ namespace ModifiedTicketingSystem {
             _ticket = null;
             _card = null;
             _reader = null;
-            _anAccount = null;
+            _anAccount = 0;
             
         }
 
@@ -45,7 +45,7 @@ namespace ModifiedTicketingSystem {
             return _dayPassPrice;
         }
 
-        public bool MakeCashPayment(decimal due, decimal given, Label _due) {
+        public PaymentList MakeCashPayment(decimal due, decimal given, Label _due) {
             //_paymentList.AddPayment(new Payment(due, given));
             Payment lastPayment;
 
@@ -54,7 +54,10 @@ namespace ModifiedTicketingSystem {
                 _paymentList.AddPayment(new Payment(_paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1).GetBalance()-given, given));
                 _due.Text = "£" + _paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1).GetBalance();
                 lastPayment = _paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1);
-                return lastPayment.GetBalance() <= 0;
+                if (lastPayment.GetBalance() <= 0) {
+                    new CustomerAccount(_anAccount).AddTransaction(_paymentList);
+                }
+                return lastPayment.GetBalance() > 0 ? null : _paymentList;
             }
 
             lastPayment = _paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1);
@@ -63,19 +66,31 @@ namespace ModifiedTicketingSystem {
                 lastPayment = _paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1);
                 _due.Text = "£" + lastPayment.GetBalance();
 
-                return lastPayment.GetBalance() <= 0;
+                //lastPayment = _paymentList.GetPaymentByIndex(_paymentList.GetSize() - 1);
+                if (lastPayment.GetBalance() <= 0) {
+                    new CustomerAccount(_anAccount).AddTransaction(_paymentList);
+                }
+                return lastPayment.GetBalance() > 0 ? null : _paymentList;
             }
 
-            return true;
+            //_anAccount.AddTransaction();
+            return _paymentList;
         }
 
         public decimal GetPaidAmount() {
             var size = _paymentList.GetSize() - 1;
             return size >= 0 ?_paymentList.GetPaymentByIndex(size).GetBalance() : 0;
         }
+
         public void MakeCardPayment(float x) {
             
         }
+
+
+        public void SetAccount(int id) {
+            _anAccount = id;
+        }
+
 
         public void Reset() {
             _paymentList = null;

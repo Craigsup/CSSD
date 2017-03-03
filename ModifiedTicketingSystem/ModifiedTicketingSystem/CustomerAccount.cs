@@ -21,6 +21,8 @@ namespace ModifiedTicketingSystem {
         protected Station _endStation;
         [DataMember]
         protected PaymentList _paymentList;
+        [DataMember]
+        protected List<PaymentList> _transactionList;
 
         /// <summary>
         /// A constructor for the CustomerAccount class that takes parameters
@@ -38,12 +40,31 @@ namespace ModifiedTicketingSystem {
             _savedPaymentMethods = new List<PaymentCard>();
             _JourneyList = new JourneyList();
             _paymentList = new PaymentList();
+            _transactionList = new List<PaymentList>();
         }
 
         /// <summary>
         /// a constructor for the CustomerAccount class
         /// </summary>
         public CustomerAccount() {
+        }
+
+        public CustomerAccount(int id) {
+            var temp = new AccountList().GetAccountById(id);
+
+            _cardId = temp._cardId;
+            _balance = temp._balance;
+            _savedPaymentMethods = temp._savedPaymentMethods;
+            _JourneyList = temp._JourneyList;
+            _paymentList = temp._paymentList;
+            _transactionList = temp._transactionList;
+            _endStation = temp._endStation;
+            _startStation = temp._startStation;
+            _loginStatus = temp._loginStatus;
+            _accountId = temp._accountId;
+            _fullName = temp._fullName;
+            _password = temp._password;
+            _username = temp._username;
         }
 
         /// <summary>
@@ -172,6 +193,15 @@ namespace ModifiedTicketingSystem {
             
         }
 
+        public void AddTransaction(PaymentList transaction) {
+            if (_transactionList == null) {
+                _transactionList = new List<PaymentList>();
+            }
+
+            _transactionList.Add(transaction);
+            new AccountList().UpdateAccount(this);
+        }
+
 
         /// <summary>
         /// a method that returns the last four digits of each payment card in a list of payment cards
@@ -181,9 +211,15 @@ namespace ModifiedTicketingSystem {
             return _savedPaymentMethods.Select(x => x.GetLastFourDigits()).ToList();
         }
 
-        
 
+        public double GetTotalPaidByDate(DateTime date) {
+            //return _paymentList.GetPaymentsByDate(date).Sum(x => x.);
+            return 0;
+        }
 
+        public int GetId() {
+            return _accountId;
+        }
 
     }
 }

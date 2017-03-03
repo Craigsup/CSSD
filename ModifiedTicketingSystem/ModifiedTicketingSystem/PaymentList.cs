@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ModifiedTicketingSystem
 {
@@ -21,6 +22,13 @@ namespace ModifiedTicketingSystem
 
         public int GetSize() {
             return _listOfPayments.Count;
+        }
+
+        public List<Payment> GetPaymentsByDate(DateTime date) {
+            return
+                _listOfPayments.Where(
+                        x => x.GetDate().Year == date.Year && x.GetDate().Month == date.Month && x.GetDate().Day == date.Day)
+                    .ToList();
         }
 
         public Payment GetPaymentsByDateAndAcc(CustomerAccount x, DateTime y) {

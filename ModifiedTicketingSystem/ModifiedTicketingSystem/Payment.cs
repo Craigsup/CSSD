@@ -15,11 +15,11 @@ namespace ModifiedTicketingSystem {
             _dateTime = DateTime.Now;
         }
 
-        public float AddBalance(float x, float y) {
+        public decimal AddBalance(float x, float y) {
             return 0;
         }
 
-        public float SubtractBalance(float x, float y) {
+        public decimal SubtractBalance(float x, float y) {
             return 0;
         }
 
@@ -36,8 +36,12 @@ namespace ModifiedTicketingSystem {
 
         }
 
-        public float GetAmountPaid() {
-            return 0;
+        public decimal GetAmountPaid() {
+            return _amountPayed;
+        }
+
+        public DateTime GetDate() {
+            return _dateTime;
         }
 
         public decimal GetBalance() {

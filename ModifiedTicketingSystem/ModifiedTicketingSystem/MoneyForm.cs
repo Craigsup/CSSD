@@ -9,18 +9,21 @@ namespace ModifiedTicketingSystem {
         public MoneyForm(TokenMachine machine, string totalPrice, Label due) {
             InitializeComponent();
             _machine = machine;
-            _totalPrice = totalPrice.Substring(1);
+            _totalPrice = totalPrice;
             _due = due;
         }
 
         protected void moneyButtonClick(object sender, EventArgs e) {
             Button button = sender as Button;
-            bool result = _machine.MakeCashPayment(decimal.Parse(_totalPrice), decimal.Parse(button.Text.Substring(1)), _due);
-            if (result) {
-                //MessageBox.Show("PAID");
+            PaymentList result = _machine.MakeCashPayment(decimal.Parse(_totalPrice), decimal.Parse(button.Text.Substring(1)), _due);
+            if (result != null) {
                 DialogResult = DialogResult.OK;
                 Close();
             }
+        }
+
+        private void MoneyForm_Load(object sender, EventArgs e) {
+
         }
     }
 }

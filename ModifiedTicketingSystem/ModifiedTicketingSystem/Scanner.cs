@@ -85,9 +85,11 @@ namespace ModifiedTicketingSystem
                 price *= 1.3m;
             }
 
+            //_account
+
 
             // PAYMENT SHIT GOES HERE.
-
+            //_account.
 
             /*PaymentList payList = new PaymentList();
             Payment payment1 = new Payment(price, 0);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -15,6 +16,7 @@ namespace ModifiedTicketingSystem {
         /// </summary>
         public AccountList() {
             _listOfAccounts = new List<CustomerAccount>();
+            //LoadData();
         }
 
         /// <summary>
@@ -49,6 +51,11 @@ namespace ModifiedTicketingSystem {
         /// <returns>an account</returns>
         public CustomerAccount GetAccountByUsername(string x) {
             return _listOfAccounts.Where(y => y.GetUsername() == x).First();
+        }
+
+        public CustomerAccount GetAccountById(int x) {
+            LoadData();
+            return _listOfAccounts.Where(y => y.GetId() == x).First();
         }
 
         /// <summary>
@@ -92,12 +99,12 @@ namespace ModifiedTicketingSystem {
             }
         }
 
-	/// <summary>
-	/// This method gets the valid user account and calls the update balance method to add the amount they wish to top up to their account balance.
-	/// </summary>
-	/// <param name="accountId">The account ID of which account to top up.</param>
-	/// <param name="topup">How much the user wishes to top up.</param>
-	public void UpdateData(int accountId, decimal topup)
+	    /// <summary>
+	    /// This method gets the valid user account and calls the update balance method to add the amount they wish to top up to their account balance.
+	    /// </summary>
+	    /// <param name="accountId">The account ID of which account to top up.</param>
+	    /// <param name="topup">How much the user wishes to top up.</param>
+	    public void UpdateData(int accountId, decimal topup)
         {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             foreach (var account in accs)
@@ -108,6 +115,20 @@ namespace ModifiedTicketingSystem {
                     
                 }
             }
+            _listOfAccounts = accs;
+            SaveData();
+        }
+
+        internal void UpdateAccount(CustomerAccount accountT) {
+            var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
+            for (int i = 0; i < accs.Count; i++) {
+                if (accountT.GetId() == accs[i].GetAccountId()) {
+                    accs[i] = accountT;
+                    break;
+
+                }
+            }
+            
             _listOfAccounts = accs;
             SaveData();
         }

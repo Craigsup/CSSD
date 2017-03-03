@@ -38,6 +38,7 @@ namespace ModifiedTicketingSystem {
         }
 
         private void SetupFile() {
+            var acc0 = new CustomerAccount(0, 0, 0, "GUEST", "djkffsdf", "GUEST ACCOUNT", true);
             var acc1 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 1, "Bob", "password", "Bob Hitler", false);
             var acc2 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 2, "Rudy", "password", "Rudy Smeg", false);
             var acc3 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 3, "Judy", "password", "Judy Spagghettio", false);
@@ -45,13 +46,14 @@ namespace ModifiedTicketingSystem {
             var acc5 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 5, "Clarence", "password", "Clarence Angel", false);
 
             AccountList accList = new AccountList();
+            accList.AddCustomerAccount(acc0);
             accList.AddCustomerAccount(acc1);
             accList.AddCustomerAccount(acc2);
             accList.AddCustomerAccount(acc3);
             accList.AddCustomerAccount(acc4);
             accList.AddCustomerAccount(acc5);
 
-            accList.SaveData();
+            //accList.SaveData();
             //accList.LoadData();
         }
 
@@ -435,7 +437,7 @@ namespace ModifiedTicketingSystem {
             if (e.KeyData == Keys.Enter) {
                 if (lbAccountTypes.SelectedIndex == 0) {
                     GuestLogin();
-                    _account = -1;
+                    _account = 0;
                 } else if (lbAccountTypes.SelectedIndex == 1) {
                     Login();
                 } else {
@@ -474,7 +476,7 @@ namespace ModifiedTicketingSystem {
                     ToggleCashScreen(true);         
                 } else { 
                     // ERROR
-                    throw new NotImplementedException();
+                    //throw new NotImplementedException();
                 }
             }
         }
@@ -586,6 +588,7 @@ namespace ModifiedTicketingSystem {
                 AutoSize = true
             };
             Controls.Add(userName);
+            _machine.SetAccount(_account);
         }
 
         private void pbHome_Click(object sender, EventArgs e) {
