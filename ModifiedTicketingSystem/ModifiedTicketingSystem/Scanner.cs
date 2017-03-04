@@ -17,7 +17,7 @@ namespace ModifiedTicketingSystem
         private Station _location;
         private CustomerAccount _account;
         private AccountList _accounts;
-        private float _dayPassPrice;
+        private decimal _dayPassPrice;
         private RouteList _routeList;
 
         public Scanner(Station location, bool entry) {
@@ -89,7 +89,19 @@ namespace ModifiedTicketingSystem
 
 
             // PAYMENT SHIT GOES HERE.
-            //_account.
+            if (_account.GetTotalPaidByDate(GetScannedTime()) > _dayPassPrice) {
+                _account.SetFreeTravel(true);
+            }
+            else {
+                if (_account.GetBalance() >= price) {
+                    _account.UpdateBalance(-price);
+                    _account.SetStartPoint(null);
+                    _account.SetEndPoint(null);
+                }
+                else {
+                    
+                }
+            }
 
             /*PaymentList payList = new PaymentList();
             Payment payment1 = new Payment(price, 0);

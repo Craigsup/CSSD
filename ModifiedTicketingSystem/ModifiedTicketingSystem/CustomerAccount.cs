@@ -187,10 +187,14 @@ namespace ModifiedTicketingSystem {
         }
 
         public void AddPaymentCard(int accountId, string cardId, string expDate, string accName) {
-            var card = Int32.Parse(cardId);
-            var expiryDate = new DateTime(Int32.Parse(expDate.Substring(3, 4)), Int32.Parse(expDate.Substring(0, 2)), 1);
-            //PaymentCard newCard = new PaymentCard(card , expiryDate , accName );
-            
+            var card = cardId;
+
+            var expiryDate = new DateTime(int.Parse(expDate.Substring(3)), int.Parse(expDate.Substring(0, 2)), 1);
+
+            PaymentCard newCard = new PaymentCard(card , expiryDate , accName );
+            _savedPaymentMethods.Add(newCard);
+            new AccountList().UpdateAccount(this);
+
         }
 
         public void AddTransaction(PaymentList transaction) {
@@ -212,9 +216,8 @@ namespace ModifiedTicketingSystem {
         }
 
 
-        public double GetTotalPaidByDate(DateTime date) {
-            //return _paymentList.GetPaymentsByDate(date).Sum(x => x.);
-            return 0;
+        public decimal GetTotalPaidByDate(DateTime date) {
+            return _paymentList.GetPaymentsByDate(date).Sum(x => x.GetAmountPaid());
         }
 
         public int GetId() {

@@ -33,7 +33,7 @@ namespace ModifiedTicketingSystem
         /// </summary>
         /// <returns></returns>
         public string GetLastFourDigits() {
-            return "**** **** **** "+_cardNumber.Substring(11);
+            return "**** **** **** "+_cardNumber.Substring(_cardNumber.Length-4);
         }
     }
 }

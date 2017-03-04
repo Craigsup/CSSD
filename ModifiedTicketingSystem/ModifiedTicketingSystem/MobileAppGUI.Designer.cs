@@ -536,7 +536,6 @@ namespace ModifiedTicketingSystem {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
-            this.Controls.Add(this.btnAddCard);
             this.Controls.Add(this.lblExpDate);
             this.Controls.Add(this.tbExpiryDate);
             this.Controls.Add(this.lblCardNumber);
@@ -544,16 +543,12 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.lblAccHolderName);
             this.Controls.Add(this.tbAccHolderName);
             this.Controls.Add(this.lblAddPaymentDetails);
-            this.Controls.Add(this.btnCvvConfirmed);
             this.Controls.Add(this.lblCvvConfirmed);
-            this.Controls.Add(this.btnCvvScreen);
             this.Controls.Add(this.tbCvvNumber);
             this.Controls.Add(this.lblCvvText);
             this.Controls.Add(this.lblCvvTitle);
-            this.Controls.Add(this.btnPaymentOptions);
             this.Controls.Add(this.lbPaymentOptions);
             this.Controls.Add(this.lblPaymentTitle);
-            this.Controls.Add(this.btnTopUp);
             this.Controls.Add(this.lblNavTopUp);
             this.Controls.Add(this.lblNavBalance);
             this.Controls.Add(this.lblNavHome);
@@ -563,7 +558,6 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.btnCloseMenu);
             this.Controls.Add(this.lblBalance);
             this.Controls.Add(this.lblHome);
-            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.tbUsername);
@@ -574,8 +568,16 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.lblPayment);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.lblUser);
+            this.Controls.Add(this.btnAddCard);
+            this.Controls.Add(this.btnCvvConfirmed);
+            this.Controls.Add(this.btnCvvScreen);
+            this.Controls.Add(this.btnPaymentOptions);
+            this.Controls.Add(this.btnTopUp);
+            this.Controls.Add(this.btnLogin);
             this.Name = "MobileAppGUI";
             this.Text = "MobileAppGUI";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MobileAppGUI_FormClosing);
+            this.Load += new System.EventHandler(this.MobileAppGUI_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

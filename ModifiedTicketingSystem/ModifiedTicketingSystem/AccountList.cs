@@ -119,13 +119,12 @@ namespace ModifiedTicketingSystem {
             SaveData();
         }
 
-        internal void UpdateAccount(CustomerAccount accountT) {
+        public void UpdateAccount(CustomerAccount accountT) {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             for (int i = 0; i < accs.Count; i++) {
                 if (accountT.GetId() == accs[i].GetAccountId()) {
                     accs[i] = accountT;
                     break;
-
                 }
             }
             

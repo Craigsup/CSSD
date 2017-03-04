@@ -593,7 +593,7 @@ namespace ModifiedTicketingSystem {
                 Name = "lblAccountUsername",
                 Text =
                     new CustomerAccount().GetXByAccountId<string>(_account, "username") + "\n£" +
-                    new CustomerAccount().GetXByAccountId<string>(_account, "balance"),
+                    string.Format("{0:0000000.00}", new CustomerAccount().GetXByAccountId<string>(_account, "balance")),
                 Location = new Point(Width - 150 + userPicture.Width + 3, 15),
                 AutoSize = true
             };
@@ -771,6 +771,10 @@ namespace ModifiedTicketingSystem {
 
         private void TokenMachineGUI_FormClosing(object sender, FormClosingEventArgs e) {
             _account = new Account().Logout(_account);
+        }
+
+        private void TokenMachineGUI_Load(object sender, EventArgs e) {
+
         }
     }
 }

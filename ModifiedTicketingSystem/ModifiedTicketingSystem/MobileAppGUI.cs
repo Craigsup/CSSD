@@ -76,8 +76,8 @@ namespace ModifiedTicketingSystem {
 
         }
 
-        private void ShowCvvScreen()
-        {
+        private void ShowCvvScreen() {
+            lblPayment.Visible = false;
             lblPaymentTitle.Visible = false;
             lbPaymentOptions.Visible = false;
             btnPaymentOptions.Visible = false;
@@ -289,11 +289,10 @@ namespace ModifiedTicketingSystem {
         }
 
         private void btnPaymentOptions_Click(object sender, EventArgs e) {
-            if(lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1)
-            {
+            if(lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1) {
                 ShowAddPaymentOptionScreen();
-                //ShowCvvScreen();
-                //add payment stuff
+                // ShowCvvScreen();
+                // add payment stuff
             }
             else
             {
@@ -328,7 +327,19 @@ namespace ModifiedTicketingSystem {
         }
 
         private void btnAddCard_Click(object sender, EventArgs e) {
-            new CustomerAccount().AddPaymentCard(_account, tbCardNumber.Text, tbExpiryDate.Text, tbAccHolderName.Text);
+            new CustomerAccount(_account).AddPaymentCard(_account, tbCardNumber.Text, tbExpiryDate.Text, tbAccHolderName.Text);
+            HideAll();
+            lblPayment.Text = "Added.";
+            lblPayment.Visible = true;
+            ShowCvvScreen();
+        }
+
+        private void MobileAppGUI_FormClosing(object sender, FormClosingEventArgs e) {
+            _account = new Account().Logout(_account);
+        }
+
+        private void MobileAppGUI_Load(object sender, EventArgs e) {
+
         }
     }
 }

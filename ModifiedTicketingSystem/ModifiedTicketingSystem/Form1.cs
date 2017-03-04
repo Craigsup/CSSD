@@ -11,5 +11,10 @@ namespace ModifiedTicketingSystem {
             TokenMachineGUI gui = new TokenMachineGUI();
             gui.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e) {
+            MobileAppGUI gui = new MobileAppGUI();
+            gui.Show();
+        }
     }
 }
