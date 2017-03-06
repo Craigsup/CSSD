@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
 
 namespace ModifiedTicketingSystem {
     /// <summary>
@@ -6,9 +9,10 @@ namespace ModifiedTicketingSystem {
     /// </summary>
     /// 
     [Serializable]
+    [DataContract]
     public class AdminAccount : Account {
-        private readonly RouteList _routes;
-
+        [DataMember]
+        protected RouteList _routes;
         /// <summary>
         /// Constructor for the AdminAccount class
         /// </summary>

@@ -39,16 +39,27 @@ namespace ModifiedTicketingSystem
 
         }
 
-        public void AddScannedCard(SmartCard x) {
-            if (_entry) {
-                x.SetScannedTime();
-            }
-
+        public bool AddScannedCard(SmartCard x) {
             _scanTime = DateTime.Now;
             SetActiveAccount(_accounts.GetAccountByCardId(x.GetCardId()));
             _aSmartCard = x;
-            IsStartPointDefined();
-            MakePayment();
+
+            if (_entry) {
+                if(IsStartPointDefined()) {
+                    return false;
+                } else {
+                    x.SetScannedTime();
+                    _account.SetStartPoint(_location);
+                    return true;
+                }
+            } else {
+                if (IsStartPointDefined()) {
+                    return MakePayment();
+                } else {
+                    return false;
+                }
+            }
+
         }
 
         public void AddScannedTicket(Ticket x) {
@@ -71,7 +82,7 @@ namespace ModifiedTicketingSystem
             _scanTime = DateTime.Now;
         }
 
-        public void MakePayment() {
+        public bool MakePayment() {
             var start = _account.GetStartPoint();
             var end = _account.GetEndPoint();
             var route = _routeList.GetRouteByStations(start, end);
@@ -89,18 +100,21 @@ namespace ModifiedTicketingSystem
 
 
             // PAYMENT SHIT GOES HERE.
+            if (_account.GetFreeTravel()) {
+                return true;
+            }
             if (_account.GetTotalPaidByDate(GetScannedTime()) > _dayPassPrice) {
                 _account.SetFreeTravel(true);
+                return true;
+            }
+            if (_account.GetBalance() >= price) {
+                _account.UpdateBalance(-price);
+                _account.SetStartPoint(null);
+                _account.SetEndPoint(null);
+                return true;
             }
             else {
-                if (_account.GetBalance() >= price) {
-                    _account.UpdateBalance(-price);
-                    _account.SetStartPoint(null);
-                    _account.SetEndPoint(null);
-                }
-                else {
-                    
-                }
+                return false;
             }
 
             /*PaymentList payList = new PaymentList();

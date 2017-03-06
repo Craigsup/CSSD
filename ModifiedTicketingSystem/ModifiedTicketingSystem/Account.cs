@@ -91,7 +91,7 @@ namespace ModifiedTicketingSystem {
                     }
                     account._loginStatus = true;
                     var temp = new AccountList(accs);
-                    temp.SaveData();
+                    temp.SaveCustomerData();
                     return account._accountId;
                 }
             }
@@ -105,7 +105,7 @@ namespace ModifiedTicketingSystem {
                 if (account._accountId == accountId) {
                     account._loginStatus = false;
                     var temp = new AccountList(accs);
-                    temp.SaveData();
+                    temp.SaveCustomerData();
                     return -1;
                 }
             }

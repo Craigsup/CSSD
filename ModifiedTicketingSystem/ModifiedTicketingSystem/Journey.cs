@@ -6,7 +6,7 @@ namespace ModifiedTicketingSystem
     public class Journey {
         protected readonly DateTime _routeCompletion;
         protected readonly Route _theRoute;
-        protected readonly CustomerAccount _customer;
+        //protected readonly CustomerAccount _customer;
 
         /// <summary>
         /// a constructor for the Journey class
@@ -14,8 +14,8 @@ namespace ModifiedTicketingSystem
         /// <param name="customer"></param>
         /// <param name="theRoute"></param>
         /// <param name="routeCompletion"></param>
-        public Journey(CustomerAccount customer, Route theRoute, DateTime routeCompletion) {
-            _customer = customer;
+        public Journey(Route theRoute, DateTime routeCompletion) {
+        //    _customer = customer;
             _theRoute = theRoute;
             _routeCompletion = routeCompletion;
         }
@@ -40,8 +40,8 @@ namespace ModifiedTicketingSystem
         /// a method that returns a customer account
         /// </summary>
         /// <returns>a customer account</returns>
-        public CustomerAccount GetCustomer() {
-            return _customer;
-        }
+        //public CustomerAccount GetCustomer() {
+        //    return _customer;
+        //}
     }
 }

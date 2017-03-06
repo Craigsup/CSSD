@@ -10,13 +10,17 @@ namespace ModifiedTicketingSystem {
     /// </summary>
     public class AccountList {
         private List<CustomerAccount> _listOfAccounts;
+        private List<AdminAccount> _listOfAdminAccounts;
 
         /// <summary>
         /// Constructor that creates a new list of customer accounts
         /// </summary>
-        public AccountList() {
-            _listOfAccounts = new List<CustomerAccount>();
-            //LoadData();
+        public AccountList(bool accountType) {
+            if (accountType == true) {
+                _listOfAdminAccounts = new List<AdminAccount>();
+            } else {
+                _listOfAccounts = new List<CustomerAccount>();
+            }
         }
 
         /// <summary>
@@ -54,22 +58,30 @@ namespace ModifiedTicketingSystem {
         }
 
         public CustomerAccount GetAccountById(int x) {
-            LoadData();
+            //LoadData();
             return _listOfAccounts.Where(y => y.GetId() == x).First();
         }
 
         /// <summary>
         /// A method that calls the private WriteToBinaryFile method with the required parameters
         /// </summary>
-        public void SaveData() {
+        public void SaveCustomerData() {
             WriteToBinaryFile(@"Accounts.txt", _listOfAccounts, false);
+        }
+
+        public void SaveAdminData() {
+            WriteToBinaryFile(@"AdminAccounts.txt", _listOfAdminAccounts, false);
         }
 
         /// <summary>
         /// A method that calls the private ReadFromBinaryFile method with the required parameters
         /// </summary>
-        public void LoadData() {
+        public void LoadCustomerData() {
             _listOfAccounts = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
+        }
+
+        public void LoadAdminData() {
+            _listOfAdminAccounts = ReadFromBinaryFile<List<AdminAccount>>(@"AdminAccounts.txt");
         }
 
         /// <summary>
@@ -116,7 +128,7 @@ namespace ModifiedTicketingSystem {
                 }
             }
             _listOfAccounts = accs;
-            SaveData();
+            SaveCustomerData();
         }
 
         public void UpdateAccount(CustomerAccount accountT) {
@@ -129,7 +141,11 @@ namespace ModifiedTicketingSystem {
             }
             
             _listOfAccounts = accs;
-            SaveData();
+            SaveCustomerData();
+        }
+
+        public List<CustomerAccount> ToList() {
+            return _listOfAccounts;
         }
     }
 }

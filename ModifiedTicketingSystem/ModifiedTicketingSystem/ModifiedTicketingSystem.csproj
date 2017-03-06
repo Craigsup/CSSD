@@ -94,6 +94,7 @@
     <Compile Include="ScannerFeedback.cs" />
     <Compile Include="SmartCard.cs" />
     <Compile Include="Station.cs" />
+    <Compile Include="StationList.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="TokenMachine.cs" />
     <Compile Include="TokenMachineGUI.cs">
@@ -120,7 +121,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="TokenMachineGUI.resx">
       <DependentUpon>TokenMachineGUI.cs</DependentUpon>

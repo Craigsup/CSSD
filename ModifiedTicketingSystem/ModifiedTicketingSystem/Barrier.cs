@@ -1,18 +1,21 @@
 ﻿namespace ModifiedTicketingSystem {
     public class Barrier {
+        private bool _isOpen;
 
-        /// <summary>
-        /// A method that does nothing
-        /// </summary>
-        public void OpenBarrier() {
-            
+        public Barrier() {
+            _isOpen = false;
         }
 
-        /// <summary>
-        /// A method that does nothing
-        /// </summary>
-        public void CloseBarrier() {
+        public void OpenBarrier() {
+            _isOpen = true;
+        }
 
+        public void CloseBarrier() {
+            _isOpen = false;
+        }
+
+        public bool CheckIsOpen() {
+            return _isOpen;
         }
     }
 }

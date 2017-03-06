@@ -4,14 +4,14 @@ using System;
 namespace ModifiedTicketingSystem {
     [Serializable]
     public class Payment {
-        private CustomerAccount _account;
-        private decimal _amountPayed;
+        //private CustomerAccount _account;
+        private decimal _amountPaid;
         private decimal _amountOwed;
         private DateTime _dateTime;
 
         public Payment(decimal amountOwed, decimal amountPaid) {
             _amountOwed = amountOwed;
-            _amountPayed = amountPaid;
+            _amountPaid = amountPaid;
             _dateTime = DateTime.Now;
         }
 
@@ -25,19 +25,19 @@ namespace ModifiedTicketingSystem {
 
         public void CashPayment(decimal x) {
             _amountOwed -= x;
-            _amountPayed += x;
+            _amountPaid += x;
         }
 
-        public void SetAmountPayed(float x) {
+        public void SetAmountPaid(float x) {
 
         }
 
-        public void SetAccount(CustomerAccount account) {
+        //public void SetAccount(CustomerAccount account) {
 
-        }
+        //}
 
         public decimal GetAmountPaid() {
-            return _amountPayed;
+            return _amountPaid;
         }
 
         public DateTime GetDate() {

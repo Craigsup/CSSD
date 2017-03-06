@@ -45,7 +45,7 @@ namespace ModifiedTicketingSystem {
             var acc4 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 4, "John", "password", "John Smith", false);
             var acc5 = new CustomerAccount(rand.Next(1000000, 9999999), 0, 5, "Clarence", "password", "Clarence Angel", false);
 
-            AccountList accList = new AccountList();
+            AccountList accList = new AccountList(false);
             accList.AddCustomerAccount(acc0);
             accList.AddCustomerAccount(acc1);
             accList.AddCustomerAccount(acc2);
@@ -54,7 +54,6 @@ namespace ModifiedTicketingSystem {
             accList.AddCustomerAccount(acc5);
 
             //accList.SaveData();
-            //accList.LoadData();
         }
 
         private void DisplayLangList() {

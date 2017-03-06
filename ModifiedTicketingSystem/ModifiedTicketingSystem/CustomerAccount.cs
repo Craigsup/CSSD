@@ -23,6 +23,8 @@ namespace ModifiedTicketingSystem {
         protected PaymentList _paymentList;
         [DataMember]
         protected List<PaymentList> _transactionList;
+        [DataMember]
+        protected bool _freeTravel;
 
         /// <summary>
         /// A constructor for the CustomerAccount class that takes parameters
@@ -41,6 +43,7 @@ namespace ModifiedTicketingSystem {
             _JourneyList = new JourneyList();
             _paymentList = new PaymentList();
             _transactionList = new List<PaymentList>();
+            _freeTravel = false;
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace ModifiedTicketingSystem {
         }
 
         public CustomerAccount(int id) {
-            var temp = new AccountList().GetAccountById(id);
+            var temp = new AccountList(false).GetAccountById(id);
 
             _cardId = temp._cardId;
             _balance = temp._balance;
@@ -166,7 +169,7 @@ namespace ModifiedTicketingSystem {
         /// </summary>
         /// <param name="x"></param>
         public void SetFreeTravel(bool x) {
-            
+            _freeTravel = x;
         }
 
         /// <summary>
@@ -174,7 +177,7 @@ namespace ModifiedTicketingSystem {
         /// </summary>
         /// <returns>false</returns>
         public bool GetFreeTravel() {
-            return false;
+            return _freeTravel;
         }
 
         /// <summary>
@@ -183,7 +186,7 @@ namespace ModifiedTicketingSystem {
         /// <param name="accountId"></param>
         /// <param name="topUp"></param>
 	    public void TopUpBalance(int accountId, decimal topUp){
-            new AccountList().UpdateData(accountId, topUp);
+            new AccountList(false).UpdateData(accountId, topUp);
         }
 
         public void AddPaymentCard(int accountId, string cardId, string expDate, string accName) {
@@ -193,7 +196,7 @@ namespace ModifiedTicketingSystem {
 
             PaymentCard newCard = new PaymentCard(card , expiryDate , accName );
             _savedPaymentMethods.Add(newCard);
-            new AccountList().UpdateAccount(this);
+            new AccountList(false).UpdateAccount(this);
 
         }
 
@@ -203,7 +206,7 @@ namespace ModifiedTicketingSystem {
             }
 
             _transactionList.Add(transaction);
-            new AccountList().UpdateAccount(this);
+            new AccountList(false).UpdateAccount(this);
         }
 
 
@@ -222,6 +225,12 @@ namespace ModifiedTicketingSystem {
 
         public int GetId() {
             return _accountId;
+        }
+
+        public override string ToString() {
+            return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}", this._cardId.ToString(), 
+                this._balance, this._savedPaymentMethods, this._JourneyList, this._startStation, this._endStation, this._paymentList, 
+                this._transactionList, this._freeTravel, base._accountId, base._fullName, base._loginStatus, base._password, base._username);
         }
 
     }
