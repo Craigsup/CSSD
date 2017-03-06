@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace ModifiedTicketingSystem {
@@ -21,8 +22,16 @@ namespace ModifiedTicketingSystem {
 
         private void Form1_Load(object sender, EventArgs e) {
             var stations = File.ReadAllLines(@"UK_TrainStations.txt");
+            List<Station> stationsj = new List<Station>();
             foreach (var singleLine in stations) {
-                //_stationList.Add(new Station(new DepartureList(), singleLine));
+                stationsj.Add(new Station(new DepartureList(), singleLine));
+            }
+            WriteToBinaryFile<List<Station>>(@"Stations.txt", stationsj, false);
+        }
+        public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
+                var binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
             }
         }
     }

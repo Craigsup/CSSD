@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ModifiedTicketingSystem {
-    class StationList {
+    public class StationList {
         private List<Station> _listOfStations;
 
         public StationList() {
@@ -13,7 +13,7 @@ namespace ModifiedTicketingSystem {
         }
         
         public void AddStation(string x) {
-
+            _listOfStations.Add(new Station(new DepartureList(), x));
         }
     }
 }
