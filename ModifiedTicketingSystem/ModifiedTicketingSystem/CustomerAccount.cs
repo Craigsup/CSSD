@@ -130,6 +130,7 @@ namespace ModifiedTicketingSystem {
         /// <param name="x"></param>
         public void UpdateBalance(decimal x) {
             _balance += x;
+            new AccountList(false).UpdateAccount(this);
         }
 
         /// <summary>
