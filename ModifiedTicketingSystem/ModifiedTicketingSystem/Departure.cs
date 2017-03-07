@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace ModifiedTicketingSystem {
+    [Serializable]
     public class Departure {
         private Station _station;
         private DateTime _departureTime;

@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace ModifiedTicketingSystem
 {
+    [Serializable]
     public class DepartureList {
         private List<Departure> _listOfDepartures;
 

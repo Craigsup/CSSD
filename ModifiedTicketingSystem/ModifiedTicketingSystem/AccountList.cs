@@ -58,7 +58,7 @@ namespace ModifiedTicketingSystem {
         }
 
         public CustomerAccount GetAccountById(int x) {
-            //LoadData();
+            LoadCustomerData();
             return _listOfAccounts.Where(y => y.GetId() == x).First();
         }
 

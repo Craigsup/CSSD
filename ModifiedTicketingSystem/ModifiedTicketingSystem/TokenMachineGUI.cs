@@ -53,7 +53,7 @@ namespace ModifiedTicketingSystem {
             accList.AddCustomerAccount(acc4);
             accList.AddCustomerAccount(acc5);
 
-            //accList.SaveData();
+            //accList.SaveCustomerData();
         }
 
         private void DisplayLangList() {
