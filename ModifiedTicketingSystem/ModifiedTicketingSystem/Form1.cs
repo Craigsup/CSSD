@@ -21,7 +21,7 @@ namespace ModifiedTicketingSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            var stations = File.ReadAllLines(@"UK_TrainStations.txt");
+            var stations = File.ReadAllLines(@"Stations.txt");
             List<Station> stationsj = new List<Station>();
             foreach (var singleLine in stations) {
                 stationsj.Add(new Station(new DepartureList(), singleLine));
