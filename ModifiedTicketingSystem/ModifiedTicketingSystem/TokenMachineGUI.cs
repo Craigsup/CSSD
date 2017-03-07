@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ModifiedTicketingSystem.Properties;
@@ -13,7 +14,7 @@ namespace ModifiedTicketingSystem {
         private TokenMachine _machine;
         private Language _lang;
         private LanguageList _langList;
-        private string[] stations = new string[2533];
+        //private string[] stations = new string[2533];
         private int _account;
         private Stack<string> _actionStack = new Stack<string>();
         private List<int> nudAcceptedValues = new List<int> {1, 3, 5, 7, 10, 28};
@@ -30,11 +31,12 @@ namespace ModifiedTicketingSystem {
             SetupFile();
             dayPassPrice = decimal.Round((decimal)rand.NextDouble(), 2) * 10;
             _machine = new TokenMachine(dayPassPrice);
-
-            stations = File.ReadAllLines(@"UK_TrainStations.txt");
-            cbStartStation.DataSource = stations;
+            var hold = ReadFromBinaryFile<List<Station>>(@"Stations.txt");
+            cbStartStation.DataSource = hold;
+            //stations = File.ReadAllLines(@"Stations.txt");
+            //cbStartStation.DataSource = stations;
             cbEndStation.BindingContext = new BindingContext();
-            cbEndStation.DataSource = stations;
+            cbEndStation.DataSource = cbStartStation.DataSource;
 
             SetupLanguages();
             DisplayLangList();
@@ -56,7 +58,14 @@ namespace ModifiedTicketingSystem {
             accList.AddCustomerAccount(acc4);
             accList.AddCustomerAccount(acc5);
 
-            //accList.SaveCustomerData();
+            accList.SaveCustomerData();
+        }
+
+        public static T ReadFromBinaryFile<T>(string filePath) {
+            using (Stream stream = File.Open(filePath, FileMode.Open)) {
+                var binaryFormatter = new BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
+            }
         }
 
         private void DisplayLangList() {
@@ -713,6 +722,11 @@ namespace ModifiedTicketingSystem {
                     HideAll();
                     ToggleTimedPass(false);
                     nudTimedPass.Focus();
+                    break;
+                case "SingleJourney":
+                    HideAll();
+                    ToggleSingleJourney(false);
+                    cbEndStation.Focus();
                     break;
             }
         }

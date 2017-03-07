@@ -21,6 +21,10 @@ namespace ModifiedTicketingSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            //FU();
+        }
+
+        private void FU() {
             var stations = File.ReadAllLines(@"Stations.txt");
             List<Station> stationsj = new List<Station>();
             foreach (var singleLine in stations) {
