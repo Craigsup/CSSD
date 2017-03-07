@@ -9,7 +9,7 @@ namespace ModifiedTicketingSystem {
         public MoneyForm(TokenMachine machine, string totalPrice, Label due) {
             InitializeComponent();
             _machine = machine;
-            _totalPrice = totalPrice.Substring(1) == "£" ? totalPrice.Substring(1) : totalPrice;
+            _totalPrice = totalPrice.Substring(0,1) == "£" ? totalPrice.Substring(1) : totalPrice;
             _due = due;
         }
 

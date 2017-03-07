@@ -34,8 +34,8 @@ namespace ModifiedTicketingSystem {
 
 
         private void ShowHome() {
-            lblHome.Visible = true;
             btnOpenMenu.Visible = true;
+            lblHome.Visible = true;
             lblWelcome.Visible = true;
             lblUser.Visible = true;
         }
@@ -51,6 +51,7 @@ namespace ModifiedTicketingSystem {
         {
             lblTopUp.Visible = true;
             btnOpenMenu.Visible = true;
+            lblCurrencySymbol.Visible = true;
 
             btnTopUp.Visible = true;
             tbTopUp.Visible = true;
@@ -58,6 +59,7 @@ namespace ModifiedTicketingSystem {
 
         private void ShowPaymentOptions()
         {
+            lblCurrencySymbol.Visible = false;
             lblTopUp.Visible = false;
             btnOpenMenu.Visible = false;
             btnTopUp.Visible = false;
@@ -82,7 +84,13 @@ namespace ModifiedTicketingSystem {
             lbPaymentOptions.Visible = false;
             btnPaymentOptions.Visible = false;
 
-            lblCvvText.Text = "Enter your CVV for the card ending in: \n" + lbPaymentOptions.SelectedItem.ToString().Substring(14);
+            if (lbPaymentOptions.SelectedIndex == lbPaymentOptions.Items.Count - 1) {
+                lblCvvText.Text = "Enter your CVV for the card ending in: \n" + tbCardNumber.Text.Substring(tbCardNumber.Text.Length-4);
+            } else {
+                lblCvvText.Text = "Enter your CVV for the card ending in: \n" + lbPaymentOptions.SelectedItem.ToString().Substring(lbPaymentOptions.SelectedItem.ToString().Length-4);
+            }
+            
+
             lblCvvText.Visible = true;
             lblCvvTitle.Visible = true;
             tbCvvNumber.Visible = true;
@@ -119,8 +127,6 @@ namespace ModifiedTicketingSystem {
 
         }
 
-
-
         /*
         * Custom Toggle Functions to simplify screens
         */
@@ -132,16 +138,13 @@ namespace ModifiedTicketingSystem {
             lblPassword.Visible = !lblPassword.Visible;
             lblUsername.Visible = !lblUsername.Visible;
             btnLogin.Visible = !btnLogin.Visible;
-            btnOpenMenu.Visible = !btnOpenMenu.Visible;
+            btnOpenMenu.Visible = false;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             LoginToAccount(tbUsername.Text, tbPassword.Text);
         }
-
-
-
 
         private void HideAll()
         {
@@ -192,8 +195,7 @@ namespace ModifiedTicketingSystem {
         {
             _account = new CustomerAccount().VerifyLogin(username, password);
             lblUser.Text = username;
-            if (_account > -1)
-            {
+            if (_account > -1) {
                 _app = new MobileApp(_account);
                 // Hide login screen
                 ToggleLoginScreen();
@@ -209,30 +211,31 @@ namespace ModifiedTicketingSystem {
         private void btnOpenMenu_Click(object sender, EventArgs e)
         {
             btnOpenMenu.Visible = false;
-            pnlMenu.Visible = true;
             for (int i = 0; i < 100;i++) {
                 pnlMenu.Width = pnlMenu.Width + 1;
                 //await Task.Delay(10);
-
             }
-            lblNavHome.Visible = true;
-            lblNavBalance.Visible = true;
-            lblNavTopUp.Visible = true;
+            if (_account > -1) {
+                lblNavHome.Visible = true;
+                lblNavBalance.Visible = true;
+                lblNavTopUp.Visible = true;
+                lblLogOut.Visible = true;
+                pnlMenu.Visible = true;
+            }
             btnCloseMenu.Visible = true;
         }
 
         private void btnCloseMenu_Click(object sender, EventArgs e)
         {
             btnCloseMenu.Visible = false;
-            for (int i = 0; i < 100; i++)
-            {
+            for (int i = 0; i < 100; i++) {
                 pnlMenu.Width = pnlMenu.Width - 1;
                 //await Task.Delay(10);
-
             }
             lblNavHome.Visible = false;
             lblNavBalance.Visible = false;
             lblNavTopUp.Visible = false;
+            lblLogOut.Visible = false;
             pnlMenu.Visible = false;
             btnOpenMenu.Visible = true;
         }
@@ -340,6 +343,12 @@ namespace ModifiedTicketingSystem {
 
         private void MobileAppGUI_Load(object sender, EventArgs e) {
 
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e) {
+            _account = new Account().Logout(_account);
+            HideAll();
+            ToggleLoginScreen();
         }
     }
 }

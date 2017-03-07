@@ -21,6 +21,9 @@ namespace ModifiedTicketingSystem {
         private decimal dayPassPrice;
         private int selection;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TokenMachineGUI() {
             InitializeComponent();
 

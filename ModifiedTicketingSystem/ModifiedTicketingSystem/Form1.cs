@@ -28,11 +28,17 @@ namespace ModifiedTicketingSystem {
             }
             WriteToBinaryFile<List<Station>>(@"Stations.txt", stationsj, false);
         }
+
         public static void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false) {
             using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create)) {
                 var binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
             }
+        }
+
+        private void btnAdminGUI_Click(object sender, EventArgs e) {
+            AdminGUI gui = new AdminGUI();
+            gui.Show();
         }
     }
 }

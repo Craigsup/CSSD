@@ -13,19 +13,20 @@ namespace ModifiedTicketingSystem {
     public class AdminAccount : Account {
         [DataMember]
         protected RouteList _routes;
-        [DataMember]
-        protected StationList _stations;
         /// <summary>
         /// Constructor for the AdminAccount class
         /// </summary>
-        /// <param name="routes"></param>
         /// <param name="accountId"></param>
         /// <param name="fullName"></param>
         /// <param name="password"></param>
         /// <param name="username"></param>
         /// <param name="loginStatus"></param>
-        public AdminAccount(int accountId, string fullName, string password, string username, bool loginStatus)
-            : base(accountId, username, password, fullName, loginStatus) {
+        public AdminAccount(int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
+            
+        }
+
+        public AdminAccount() {
+            
         }
 
         /// <summary>

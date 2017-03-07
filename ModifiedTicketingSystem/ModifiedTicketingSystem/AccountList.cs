@@ -31,12 +31,20 @@ namespace ModifiedTicketingSystem {
             _listOfAccounts = new List<CustomerAccount>(accs);
         }
 
+        public AccountList(List<AdminAccount> accs) {
+            _listOfAdminAccounts = new List<AdminAccount>(accs);
+        }
+
         /// <summary>
         /// A method that adds a customer account parameter to the list of accounts
         /// </summary>
         /// <param name="x"></param>
         public void AddCustomerAccount(CustomerAccount x) {
             _listOfAccounts.Add(x);
+        }
+
+        public void AddAdminAccount(AdminAccount x) {
+            _listOfAdminAccounts.Add(x);
         }
 
         /// <summary>

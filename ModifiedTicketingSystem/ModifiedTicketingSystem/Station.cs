@@ -4,7 +4,7 @@ namespace ModifiedTicketingSystem {
     [Serializable]
     public class Station {
         protected DepartureList _departureList;
-        protected readonly string _location;
+        protected string _location { get; set; }
 
         public Station(DepartureList departureList, string location) {
             _departureList = departureList;
@@ -20,6 +20,10 @@ namespace ModifiedTicketingSystem {
         }
 
         public string GetLocation() {
+            return _location;
+        }
+
+        public override string ToString() {
             return _location;
         }
     }

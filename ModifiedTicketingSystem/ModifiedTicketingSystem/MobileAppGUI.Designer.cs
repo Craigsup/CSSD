@@ -64,6 +64,8 @@ namespace ModifiedTicketingSystem {
             this.lblExpDate = new System.Windows.Forms.Label();
             this.tbExpiryDate = new System.Windows.Forms.TextBox();
             this.btnAddCard = new System.Windows.Forms.Button();
+            this.lblLogOut = new System.Windows.Forms.Label();
+            this.lblCurrencySymbol = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblUsername
@@ -530,12 +532,40 @@ namespace ModifiedTicketingSystem {
             this.btnAddCard.Visible = false;
             this.btnAddCard.Click += new System.EventHandler(this.btnAddCard_Click);
             // 
+            // lblLogOut
+            // 
+            this.lblLogOut.AutoSize = true;
+            this.lblLogOut.BackColor = System.Drawing.Color.DarkGray;
+            this.lblLogOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lblLogOut.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblLogOut.Location = new System.Drawing.Point(12, 217);
+            this.lblLogOut.Name = "lblLogOut";
+            this.lblLogOut.Size = new System.Drawing.Size(77, 24);
+            this.lblLogOut.TabIndex = 40;
+            this.lblLogOut.Text = "Log Out";
+            this.lblLogOut.Visible = false;
+            this.lblLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
+            // 
+            // lblCurrencySymbol
+            // 
+            this.lblCurrencySymbol.AutoSize = true;
+            this.lblCurrencySymbol.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.lblCurrencySymbol.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblCurrencySymbol.Location = new System.Drawing.Point(67, 212);
+            this.lblCurrencySymbol.Name = "lblCurrencySymbol";
+            this.lblCurrencySymbol.Size = new System.Drawing.Size(29, 31);
+            this.lblCurrencySymbol.TabIndex = 41;
+            this.lblCurrencySymbol.Text = "£";
+            this.lblCurrencySymbol.Visible = false;
+            // 
             // MobileAppGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(309, 484);
+            this.Controls.Add(this.lblLogOut);
             this.Controls.Add(this.lblExpDate);
             this.Controls.Add(this.tbExpiryDate);
             this.Controls.Add(this.lblCardNumber);
@@ -544,7 +574,6 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.tbAccHolderName);
             this.Controls.Add(this.lblAddPaymentDetails);
             this.Controls.Add(this.lblCvvConfirmed);
-            this.Controls.Add(this.tbCvvNumber);
             this.Controls.Add(this.lblCvvText);
             this.Controls.Add(this.lblCvvTitle);
             this.Controls.Add(this.lbPaymentOptions);
@@ -568,12 +597,14 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.lblPayment);
             this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.lblUser);
+            this.Controls.Add(this.btnLogin);
+            this.Controls.Add(this.tbCvvNumber);
+            this.Controls.Add(this.lblCurrencySymbol);
             this.Controls.Add(this.btnAddCard);
             this.Controls.Add(this.btnCvvConfirmed);
             this.Controls.Add(this.btnCvvScreen);
             this.Controls.Add(this.btnPaymentOptions);
             this.Controls.Add(this.btnTopUp);
-            this.Controls.Add(this.btnLogin);
             this.Name = "MobileAppGUI";
             this.Text = "MobileAppGUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MobileAppGUI_FormClosing);
@@ -623,5 +654,7 @@ namespace ModifiedTicketingSystem {
         private Label lblExpDate;
         private TextBox tbExpiryDate;
         private Button btnAddCard;
+        private Label lblLogOut;
+        private Label lblCurrencySymbol;
     }
 }

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ModifiedTicketingSystem
 {
+    [Serializable]
     public  class RouteList {
         private List<Route> _listOfRoutes;
 

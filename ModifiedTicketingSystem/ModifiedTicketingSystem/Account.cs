@@ -83,20 +83,36 @@ namespace ModifiedTicketingSystem {
         /// <param name="password">A string containing the password the user entered when attempting to log in.</param>
         /// <returns>If successful, the accountId, else -1 to signal a failure.</returns>
         public int VerifyLogin(string username, string password) {
-            var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
-            foreach (var account in accs) {
-                if (account._username == username && account._password == password) {
-                    if (account._loginStatus) {
-                        return -2;
+            if (username.StartsWith("admin")) {
+                var accs = ReadFromBinaryFile<List<AdminAccount>>(@"AdminAccounts.txt");
+                foreach (var account in accs) {
+                    if (account._username == username && account._password == password) {
+                        if (account._loginStatus) {
+                            return -2;
+                        }
+                        account._loginStatus = true;
+                        var temp = new AccountList(accs);
+                        temp.SaveAdminData();
+                        return account._accountId;
                     }
-                    account._loginStatus = true;
-                    var temp = new AccountList(accs);
-                    temp.SaveCustomerData();
-                    return account._accountId;
                 }
+                return -1;
             }
-
-            return -1;
+            else {
+                var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
+                foreach (var account in accs) {
+                    if (account._username == username && account._password == password) {
+                        if (account._loginStatus) {
+                            return -2;
+                        }
+                        account._loginStatus = true;
+                        var temp = new AccountList(accs);
+                        temp.SaveCustomerData();
+                        return account._accountId;
+                    }
+                }
+                return -1;
+            }
         }
 
         public int Logout(int accountId) {
