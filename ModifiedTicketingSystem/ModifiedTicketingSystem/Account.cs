@@ -115,6 +115,11 @@ namespace ModifiedTicketingSystem {
             }
         }
 
+        /// <summary>
+        /// Logs a user out of their account and sets loginStatus to false
+        /// </summary>
+        /// <param name="accountId">AccountID of the account to be logged out</param>
+        /// <returns>-1 for the gui to sets it's current account ID to</returns>
         public int Logout(int accountId) {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             foreach (var account in accs) {
@@ -130,7 +135,7 @@ namespace ModifiedTicketingSystem {
         }
 
         /// <summary>
-        /// 
+        /// Deserialises data that is saved in a file.
         /// </summary>
         /// <param name="filePath"></param>
         /// <typeparam name="T"></typeparam>

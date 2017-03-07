@@ -4,7 +4,7 @@ namespace ModifiedTicketingSystem
 {
     public class PurchasedTicketList {
         private readonly List<Ticket> _listOfTickets;
-
+        
         public PurchasedTicketList() {
             _listOfTickets = new List<Ticket>();
         }

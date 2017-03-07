@@ -16,12 +16,11 @@ namespace ModifiedTicketingSystem
         private string _cardHolderName;
 
         /// <summary>
-        /// 
+        /// Constructor which takes in all the attributes of a PaymentCard
         /// </summary>
-        /// <param name="cardnumber"></param>
-        /// <param name="expiryDate"></param>
-        /// <param name="startDate"></param>
-        /// <param name="cardHolderName"></param>
+        /// <param name="cardnumber">The Card Number</param>
+        /// <param name="expiryDate">Expiry date on the card</param>
+        /// <param name="cardHolderName">Name of the card holder</param>
         public PaymentCard (string cardnumber, DateTime expiryDate, string cardHolderName) {
             _cardNumber = cardnumber;
             _expiryDate = expiryDate;
@@ -29,9 +28,9 @@ namespace ModifiedTicketingSystem
         }
 
         /// <summary>
-        /// 
+        /// Returns the last 4 digits of the card number
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string of 12 * and the last 4 digits</returns>
         public string GetLastFourDigits() {
             return "**** **** **** "+_cardNumber.Substring(_cardNumber.Length-4);
         }

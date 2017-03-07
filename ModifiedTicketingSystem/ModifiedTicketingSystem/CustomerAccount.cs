@@ -27,15 +27,15 @@ namespace ModifiedTicketingSystem {
         protected bool _freeTravel;
 
         /// <summary>
-        /// A constructor for the CustomerAccount class that takes parameters
+        /// A constructor for the CustomerAccount class that takes all the attributes as parameters
         /// </summary>
-        /// <param name="cardId"></param>
-        /// <param name="balance"></param>
-        /// <param name="accountId"></param>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <param name="fullName"></param>
-        /// <param name="loginStatus"></param>
+        /// <param name="cardId">Smart card ID</param>
+        /// <param name="balance">Balance in the accunt</param>
+        /// <param name="accountId">accountID of the Account class</param>
+        /// <param name="username">username of the Account class</param>
+        /// <param name="password">password of the Account class</param>
+        /// <param name="fullName">fullname of the Account class</param>
+        /// <param name="loginStatus">loginStatus of the Account class</param>
         public CustomerAccount(int cardId, decimal balance, int accountId, string username, string password, string fullName, bool loginStatus) : base(accountId, username, password, fullName, loginStatus) {
             _cardId = cardId;
             _balance = balance;
@@ -52,6 +52,11 @@ namespace ModifiedTicketingSystem {
         public CustomerAccount() {
         }
 
+        
+        /// <summary>
+        /// Constructor used for updating account in the file
+        /// </summary>
+        /// <param name="id">Account ID of the account being updated</param>
         public CustomerAccount(int id) {
             var temp = new AccountList(false).GetAccountById(id);
 
@@ -190,6 +195,13 @@ namespace ModifiedTicketingSystem {
             new AccountList(false).UpdateData(accountId, topUp);
         }
 
+        /// <summary>
+        /// Adds a new payment card to the account
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="cardId">Card Number</param>
+        /// <param name="expDate">Expiry date of card</param>
+        /// <param name="accName">Card holders name</param>
         public void AddPaymentCard(int accountId, string cardId, string expDate, string accName) {
             var card = cardId;
 
@@ -201,6 +213,10 @@ namespace ModifiedTicketingSystem {
 
         }
 
+        /// <summary>
+        /// Adds a new payment list to the transaction list. Creates a new transaction list if one doesn't exist
+        /// </summary>
+        /// <param name="transaction">Transaction to be added to the transaction list</param>
         public void AddTransaction(PaymentList transaction) {
             if (_transactionList == null) {
                 _transactionList = new List<PaymentList>();
@@ -219,15 +235,27 @@ namespace ModifiedTicketingSystem {
             return _savedPaymentMethods.Select(x => x.GetLastFourDigits()).ToList();
         }
 
-
+        /// <summary>
+        /// Calculates and returns the total amount paid on a given date
+        /// </summary>
+        /// <param name="date">Date for payments to be checked on</param>
+        /// <returns>Total amount paid on the date given</returns>
         public decimal GetTotalPaidByDate(DateTime date) {
             return _paymentList.GetPaymentsByDate(date).Sum(x => x.GetAmountPaid());
         }
 
+        /// <summary>
+        /// Returns the account Id
+        /// </summary>
+        /// <returns>_accountId</returns>
         public int GetId() {
             return _accountId;
         }
 
+        /// <summary>
+        /// Required for unit test comparison. Returns all attributes in the class as a string
+        /// </summary>
+        /// <returns>All attributes combined into one string</returns>
         public override string ToString() {
             return string.Format("{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}", this._cardId.ToString(), 
                 this._balance, this._savedPaymentMethods, this._JourneyList, this._startStation, this._endStation, this._paymentList, 

@@ -65,6 +65,11 @@ namespace ModifiedTicketingSystem {
             return _listOfAccounts.Where(y => y.GetUsername() == x).First();
         }
 
+        /// <summary>
+        /// Returns an accuont based on the accountID given
+        /// </summary>
+        /// <param name="x">accountID ot be searched for</param>
+        /// <returns>CustomerAccount from the listOfAccounts</returns>
         public CustomerAccount GetAccountById(int x) {
             LoadCustomerData();
             return _listOfAccounts.Where(y => y.GetId() == x).First();
@@ -139,6 +144,10 @@ namespace ModifiedTicketingSystem {
             SaveCustomerData();
         }
 
+        /// <summary>
+        /// Updates a single account in the listOfAccounts and then saves ghe listOfAccounts to file
+        /// </summary>
+        /// <param name="accountT">CustomerAccount to be updated</param>
         public void UpdateAccount(CustomerAccount accountT) {
             var accs = ReadFromBinaryFile<List<CustomerAccount>>(@"Accounts.txt");
             for (int i = 0; i < accs.Count; i++) {
@@ -152,6 +161,10 @@ namespace ModifiedTicketingSystem {
             SaveCustomerData();
         }
 
+        /// <summary>
+        /// Returns the listOfAccounts
+        /// </summary>
+        /// <returns>the contained listOfAccounts</returns>
         public List<CustomerAccount> ToList() {
             return _listOfAccounts;
         }

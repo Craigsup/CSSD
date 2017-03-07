@@ -35,13 +35,5 @@ namespace ModifiedTicketingSystem
         public DateTime GetCompletionTime() {
             return _routeCompletion;
         }
-
-        /// <summary>
-        /// a method that returns a customer account
-        /// </summary>
-        /// <returns>a customer account</returns>
-        //public CustomerAccount GetCustomer() {
-        //    return _customer;
-        //}
     }
 }
