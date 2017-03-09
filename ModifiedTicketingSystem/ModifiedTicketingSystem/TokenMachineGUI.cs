@@ -14,7 +14,7 @@ namespace ModifiedTicketingSystem {
         private TokenMachine _machine;
         private Language _lang;
         private LanguageList _langList;
-        //private string[] stations = new string[2533];
+        private string[] stations = new string[2533];
         private int _account;
         private Stack<string> _actionStack = new Stack<string>();
         private List<int> nudAcceptedValues = new List<int> {1, 3, 5, 7, 10, 28};
@@ -31,10 +31,10 @@ namespace ModifiedTicketingSystem {
             SetupFile();
             dayPassPrice = decimal.Round((decimal)rand.NextDouble(), 2) * 10;
             _machine = new TokenMachine(dayPassPrice);
-            var hold = ReadFromBinaryFile<List<Station>>(@"Stations.txt");
-            cbStartStation.DataSource = hold;
-            //stations = File.ReadAllLines(@"Stations.txt");
-            //cbStartStation.DataSource = stations;
+            //var hold = ReadFromBinaryFile<List<Station>>(@"Stations.txt");
+            //cbStartStation.DataSource = hold;
+            stations = File.ReadAllLines(@"Stations.txt");
+            cbStartStation.DataSource = stations;
             cbEndStation.BindingContext = new BindingContext();
             cbEndStation.DataSource = cbStartStation.DataSource;
 
@@ -386,48 +386,35 @@ namespace ModifiedTicketingSystem {
         /*
          * This is our own functions - not defined in the class diagram
          */
-        private void SetupLanguages() {
+        private void SetupLanguages()
+        {
             _langList = new LanguageList();
-            _langList.AddLanguage(new Language("English",
-                new List<string> { "Single Journey", "Timed Pass" },
-                new List<string>(),
-                new List<string> { "Continue as guest", "Continue to account" },
-                new List<string>(),
-                "Select a Language",
-                new List<string> { "Select payment option", "Pay by card", "Pay by cash", "Pay using balance" },
-                new List<string> { "Printing tickets" },
-                "Choose an option",
-                new List<string> { "Enter login details", "Username", "Password" },
-                new List<string> { "Top-up balance", "Print temporary pass", "Single Journey" },
-                new List<string> { "Pass Days", "Quantity" }));
 
-            _langList.AddLanguage(new Language("Deutsche",
-                new List<string> { "Einzelreise", "Zeitmessung" },
-                new List<string>(),
-                new List<string> { "Weiter als Gast", "Weiter zum Konto" },
-                new List<string>(),
-                "Wähle eine Sprache",
-                new List<string> { "Bezahlen mit Karte", "Bezahlen mit Bargeld", "Bezahlen mit Balance" },
-                new List<string> { "Drucktickets" },
-                "Wähle eine Option",
-                new List<string> { "Login-Details eingeben", "Benutzername", "Passwort" },
-                new List<string> { "Top-up balance", "Temporary Pass drucken", "Single Farht" },
-                new List<string> { "Pass Tage", "Anzahl" }));
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
-            _langList.AddLanguage(new Language("Español",
-                new List<string> { "Viaje Único", "Pase de Tiempo" },
+            string[] files = System.IO.Directory.GetFiles(path, "*.language");
+
+            for (int i = 0; i < files.Length; i++)
+            {
+
+                string[] languageTemp = new string[20];
+
+                languageTemp = System.IO.File.ReadAllLines(files[i]);
+
+                _langList.AddLanguage(new Language(languageTemp[0],
+                new List<string> { languageTemp[1], languageTemp[2] },
                 new List<string>(),
-                new List<string> { "Continuar como invitado", "Continuar a la cuenta" },
+                new List<string> { languageTemp[3], languageTemp[4] },
                 new List<string>(),
-                "Selecciona un idioma",
-                new List<string> { "Pago por tarjeta", "Pago en efectivo", "Pago por saldo" },
-                new List<string> { "Impresión de boletos" },
-                "Escoge una opción",
-                new List<string> { "Introduzca los datos de acceso", "Nombre de usuario", "Contraseña" },
-                new List<string> { "Saldo complementario", "Pase impreso", "Viaje único" },
-                new List<string> { "Pasar días", "Cantidad" }));
+                languageTemp[5],
+                new List<string> { languageTemp[6], languageTemp[7], languageTemp[8], languageTemp[9] },
+                new List<string> { languageTemp[10] },
+                languageTemp[11],
+                new List<string> { languageTemp[12], languageTemp[13], languageTemp[14] },
+                new List<string> { languageTemp[15], languageTemp[16], languageTemp[17] },
+                new List<string> { languageTemp[18], languageTemp[19] }));
+            }
         }
-
 
         /*
          * Design Patterns
