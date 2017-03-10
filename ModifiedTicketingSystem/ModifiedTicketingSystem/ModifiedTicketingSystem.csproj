@@ -22,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ModifiedTicketingSystem.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,7 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ModifiedTicketingSystem.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,13 +50,13 @@
     <Compile Include="Account.cs" />
     <Compile Include="AccountList.cs" />
     <Compile Include="AdminAccount.cs" />
-    <Compile Include="AdminGUI.cs">
+    <Compile Include="Barrier.cs" />
+    <Compile Include="ScannerFeedbackGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AdminGUI.Designer.cs">
-      <DependentUpon>AdminGUI.cs</DependentUpon>
+    <Compile Include="ScannerFeedbackGUI.Designer.cs">
+      <DependentUpon>ScannerFeedbackGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Barrier.cs" />
     <Compile Include="CardReader.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="Departure.cs" />
@@ -95,6 +93,12 @@
     <Compile Include="Route.cs" />
     <Compile Include="RouteList.cs" />
     <Compile Include="Scanner.cs" />
+    <Compile Include="ScannerCreatorGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScannerCreatorGUI.Designer.cs">
+      <DependentUpon>ScannerCreatorGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScannerFeedback.cs" />
     <Compile Include="SmartCard.cs" />
     <Compile Include="Station.cs" />
@@ -108,8 +112,8 @@
       <DependentUpon>TokenMachineGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="TokenValidator.cs" />
-    <EmbeddedResource Include="AdminGUI.resx">
-      <DependentUpon>AdminGUI.cs</DependentUpon>
+    <EmbeddedResource Include="ScannerFeedbackGUI.resx">
+      <DependentUpon>ScannerFeedbackGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -129,9 +133,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ScannerCreatorGUI.resx">
+      <DependentUpon>ScannerCreatorGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TokenMachineGUI.resx">
       <DependentUpon>TokenMachineGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\ScannerCreatorGUI.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -154,9 +162,6 @@
     <Content Include="Media\3.jpg" />
     <Content Include="Media\4.jpg" />
     <Content Include="Media\5.jpg" />
-    <Content Include="Stations.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="UK_TrainStations.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

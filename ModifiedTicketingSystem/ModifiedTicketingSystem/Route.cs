@@ -1,8 +1,18 @@
-﻿namespace ModifiedTicketingSystem {
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
+namespace ModifiedTicketingSystem {
+    [Serializable]
     public class Route {
-        private Station RouteStartPoint;
-        private Station RouteEndPoint;
-        private decimal Price;
+        [DataMember]
+        protected Station RouteStartPoint;
+        [DataMember]
+        protected Station RouteEndPoint;
+        [DataMember]
+        protected decimal Price;
 
         public Route(Station x, Station y, decimal p) {
             RouteStartPoint = x;
