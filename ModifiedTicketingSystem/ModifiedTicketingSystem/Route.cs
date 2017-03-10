@@ -1,4 +1,9 @@
-﻿namespace ModifiedTicketingSystem {
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ModifiedTicketingSystem {
+    [Serializable]
     public class Route {
         private Station RouteStartPoint;
         private Station RouteEndPoint;

@@ -74,7 +74,6 @@
     <Compile Include="JourneyList.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageList.cs" />
-    <Compile Include="Library.cs" />
     <Compile Include="MobileApp.cs" />
     <Compile Include="MobileAppGUI.cs">
       <SubType>Form</SubType>

@@ -42,6 +42,7 @@ namespace ModifiedTicketingSystem {
             //cbSelectStation.DataSource = null;
             //cbSelectStation.DisplayMember = "_location";
             //cbSelectStation.DataSource = _stations.GetStations();
+            SetupFile(); 
 
             foreach (var station in _stations.GetStations()) {
                 cbStations.Items.Add(station);
@@ -50,7 +51,6 @@ namespace ModifiedTicketingSystem {
             cbStations.SelectedIndex = 0;
             cbSelectStation.SelectedIndex = 0;
 
-            SetupFile();
         }
 
         private void SetupFile() {
@@ -185,9 +185,11 @@ namespace ModifiedTicketingSystem {
                     cbEndStationEntry.Items.Add(station);
                 }
             }
-            //foreach (var route in new AdminAccount().GetXByAccountId<List<Station>>(_account, "routes")) {
-            //    lbRoutes.Items.Add(route);
-            //}
+
+            var test = new AdminAccount().GetXByAccountId<RouteList>(_account, "routes");
+            foreach (var route in test.GetAllRoutes()) {
+                lbRoutes.Items.Add(route);
+            }
         }
 
         private void cbStations_SelectedIndexChanged(object sender, EventArgs e) {

@@ -29,5 +29,9 @@ namespace ModifiedTicketingSystem
             }
             return routes; 
         }
+
+        public List<Route> GetAllRoutes() {
+            return _listOfRoutes;
+        }
     }
 }

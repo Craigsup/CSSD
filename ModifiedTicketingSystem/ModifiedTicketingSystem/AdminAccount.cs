@@ -96,6 +96,9 @@ namespace ModifiedTicketingSystem {
         /// <param name="y"></param>
         /// <param name="z"></param>
         public void NewRoute(Station x, Station y, decimal z) {
+            if (_routes == null) {
+                _routes = new RouteList();
+            }
             _routes.AddRoute(new Route(x, y, z));
         }
 
