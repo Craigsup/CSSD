@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Barrier.cs" />
     <Compile Include="CardReader.cs" />
+    <Compile Include="Counter.cs" />
     <Compile Include="CustomerAccount.cs" />
     <Compile Include="Departure.cs" />
     <Compile Include="DepartureList.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="JourneyList.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageList.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="MobileApp.cs" />
     <Compile Include="MobileAppGUI.cs">
       <SubType>Form</SubType>
@@ -86,6 +88,7 @@
     <Compile Include="MoneyForm.Designer.cs">
       <DependentUpon>MoneyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Observer\IObserver.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PaymentCard.cs" />
     <Compile Include="PaymentList.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="SmartCard.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="StationList.cs" />
+    <Compile Include="Subject\ISubject.cs" />
     <Compile Include="Ticket.cs" />
     <Compile Include="TokenMachine.cs" />
     <Compile Include="TokenMachineGUI.cs">

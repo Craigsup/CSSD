@@ -8,9 +8,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ModifiedTicketingSystem.Properties;
+using System.Collections;
 
 namespace ModifiedTicketingSystem {
-    public partial class TokenMachineGUI : Form {
+    public partial class TokenMachineGUI : Form, IObserver {
         private TokenMachine _machine;
         private Language _lang;
         private LanguageList _langList;
@@ -21,14 +22,16 @@ namespace ModifiedTicketingSystem {
         private Random rand = new Random();
         private decimal dayPassPrice;
         private int selection;
+        private Counter counter;
+
 
         /// <summary>
         /// 
         /// </summary>
-        public TokenMachineGUI() {
+        public TokenMachineGUI(Counter _counter) {
             InitializeComponent();
 
-            SetupFile();
+            //SetupFile();
             dayPassPrice = decimal.Round((decimal)rand.NextDouble(), 2) * 10;
             _machine = new TokenMachine(dayPassPrice);
             var hold = ReadFromBinaryFile<List<Station>>(@"Stations.txt");
@@ -40,6 +43,7 @@ namespace ModifiedTicketingSystem {
 
             SetupLanguages();
             DisplayLangList();
+            counter = _counter;
         }
 
         private void SetupFile() {
@@ -377,6 +381,8 @@ namespace ModifiedTicketingSystem {
                 await Task.Delay(3000);
             }
 
+            counter.Increment();
+            
             lblFinalMessage.Visible = false;
             ResetControls();
             ToggleLanguageScreen(true);
@@ -792,5 +798,14 @@ namespace ModifiedTicketingSystem {
         private void TokenMachineGUI_Load(object sender, EventArgs e) {
 
         }
+
+        public void Update(int count) {
+            
+        }
+
+        //public Counter ISubject {
+        //    get { return counter; }
+        //    set { counter.Increment(); }
+        //}
     }
 }

@@ -485,11 +485,11 @@ namespace ModifiedTicketingSystem {
             this.Controls.Add(this.lblEndStation);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.cbEndStation);
-            this.Controls.Add(this.lbPaymentMethods);
             this.Controls.Add(this.cbStartStation);
+            this.Controls.Add(this.lbLanguages);
+            this.Controls.Add(this.lbPaymentMethods);
             this.Controls.Add(this.lbJourneyType);
             this.Controls.Add(this.lbAccountTypes);
-            this.Controls.Add(this.lbLanguages);
             this.DoubleBuffered = true;
             this.Name = "TokenMachineGUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -19,5 +19,15 @@ namespace ModifiedTicketingSystem
         public Route GetRouteByStations(Station x, Station y) {
             return _listOfRoutes.FirstOrDefault(z => z.GetStartPoint() == x && z.GetEndPoint() == y);
         }
+
+        public List<Route> GetRoutesFromStation(Station x) {
+            List<Route> routes = new List<Route>();
+            foreach (var route in _listOfRoutes) {
+                if (x == route.GetStartPoint()) {
+                    routes.Add(route);
+                }
+            }
+            return routes; 
+        }
     }
 }

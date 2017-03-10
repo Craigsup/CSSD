@@ -24,5 +24,9 @@ namespace ModifiedTicketingSystem {
         public List<Station> GetStations() {
             return _listOfStations;
         }
+
+        public Station GetStationByLocation(string location) {
+            return _listOfStations.Where(y => y.GetLocation() == location).First();
+        }
     }
 }

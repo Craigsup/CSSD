@@ -6,13 +6,18 @@ using System.Windows.Forms;
 
 namespace ModifiedTicketingSystem {
     public partial class Form1 : Form {
+
+        private Counter counter;
         public Form1() {
             InitializeComponent();
+            counter = new Counter();
+
         }
 
         private void btnAddNewGUI_Click(object sender, EventArgs e) {
-            TokenMachineGUI gui = new TokenMachineGUI();
+            TokenMachineGUI gui = new TokenMachineGUI(counter);
             gui.Show();
+            counter.RegisterObserver(gui);
         }
 
         private void button1_Click(object sender, EventArgs e) {
@@ -21,10 +26,10 @@ namespace ModifiedTicketingSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            //FU();
+            //InitialStationLoad();
         }
 
-        private void FU() {
+        private void InitialStationLoad() {
             var stations = File.ReadAllLines(@"Stations.txt");
             List<Station> stationsj = new List<Station>();
             foreach (var singleLine in stations) {
@@ -43,6 +48,8 @@ namespace ModifiedTicketingSystem {
         private void btnAdminGUI_Click(object sender, EventArgs e) {
             AdminGUI gui = new AdminGUI();
             gui.Show();
+            counter.RegisterObserver(gui);
+            counter.NotifyObservers();
         }
     }
 }

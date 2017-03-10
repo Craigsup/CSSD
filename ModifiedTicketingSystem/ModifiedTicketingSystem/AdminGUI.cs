@@ -12,9 +12,10 @@ using System.Windows.Forms;
 using ModifiedTicketingSystem.Properties;
 
 namespace ModifiedTicketingSystem {
-    public partial class AdminGUI : Form {
+    public partial class AdminGUI : Form, IObserver {
         private int _account;
         private StationList _stations;
+        //private Station _station;
 
         public AdminGUI() {
             InitializeComponent();
@@ -32,19 +33,29 @@ namespace ModifiedTicketingSystem {
             /*cbStations.DataSource = _stations.GetStations();
             cbStations.BindingContext = new BindingContext();
             cbStations.DisplayMember = "_location";*/
-            
 
 
-            cbStations.DataSource = null;
-            cbStations.DisplayMember = "_location";
-            cbStations.DataSource = _stations.GetStations();
+            //cbStations.DataSource = null;
+            //cbStations.DisplayMember = "_location";
+            //cbStations.DataSource = _stations.GetStations();
 
+            //cbSelectStation.DataSource = null;
+            //cbSelectStation.DisplayMember = "_location";
+            //cbSelectStation.DataSource = _stations.GetStations();
+
+            foreach (var station in _stations.GetStations()) {
+                cbStations.Items.Add(station);
+                cbSelectStation.Items.Add(station);
+            }
+            cbStations.SelectedIndex = 0;
+            cbSelectStation.SelectedIndex = 0;
 
             SetupFile();
         }
 
         private void SetupFile() {
             var acc0 = new AdminAccount(0, "admin-pete-w", "password", "Pete Wilkinson", false);
+            acc0.NewRoute(_stations.GetStationByLocation("Sheffield"), _stations.GetStationByLocation("London"), 25.00m);
 
             AccountList accList = new AccountList(true);
             accList.AddAdminAccount(acc0);
@@ -159,6 +170,28 @@ namespace ModifiedTicketingSystem {
 
         private void AdminGUI_Load(object sender, EventArgs e) {
 
+        }
+
+        public void Update(int count) {
+            lblTicketCount.Text = count.ToString();
+        }
+
+        private void cbSelectStation_SelectedIndexChanged(object sender, EventArgs e) {
+            lblStartStationEntry.Text = cbSelectStation.SelectedItem.ToString();
+            cbStations.SelectedIndex = cbSelectStation.SelectedIndex;
+            cbEndStationEntry.Items.Clear();
+            foreach (var station in _stations.GetStations()) {
+                if (station != cbSelectStation.SelectedItem) {
+                    cbEndStationEntry.Items.Add(station);
+                }
+            }
+            //foreach (var route in new AdminAccount().GetXByAccountId<List<Station>>(_account, "routes")) {
+            //    lbRoutes.Items.Add(route);
+            //}
+        }
+
+        private void cbStations_SelectedIndexChanged(object sender, EventArgs e) {
+            cbSelectStation.SelectedIndex = cbStations.SelectedIndex;
         }
     }
 }

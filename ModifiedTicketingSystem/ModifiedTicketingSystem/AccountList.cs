@@ -66,13 +66,18 @@ namespace ModifiedTicketingSystem {
         }
 
         /// <summary>
-        /// Returns an accuont based on the accountID given
+        /// Returns an account based on the accountID given
         /// </summary>
         /// <param name="x">accountID ot be searched for</param>
         /// <returns>CustomerAccount from the listOfAccounts</returns>
         public CustomerAccount GetAccountById(int x) {
             LoadCustomerData();
             return _listOfAccounts.Where(y => y.GetId() == x).First();
+        }
+
+        public AdminAccount GetAdminAccountById(int x) {
+            LoadAdminData();
+            return _listOfAdminAccounts.Where(y => y.GetId() == x).First();
         }
 
         /// <summary>
